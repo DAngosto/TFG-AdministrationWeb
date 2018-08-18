@@ -36,6 +36,9 @@ import { UpdateProductComponent } from './components/update-product/update-produ
 import { CreateCategoryComponent } from './components/create-category/create-category.component';
 import { UpdateCategoryComponent } from './components/update-category/update-category.component';
 import { CategoryControlPanelComponent } from './components/category-control-panel/category-control-panel.component';
+import { CafeteriaControlPanelComponent } from './components/cafeteria-control-panel/cafeteria-control-panel.component';
+import { CreateCafeteriaComponent } from './components/create-cafeteria/create-cafeteria.component';
+import { UpdateCafeteriaComponent } from './components/update-cafeteria/update-cafeteria.component';
 
 
 
@@ -46,9 +49,12 @@ const appRoutes: Routes = [
   { path: 'productsCP',  canActivate: [AuthGuard], component: ProductsControlPanelComponent },
   { path: 'newProduct', canActivate: [AuthGuard], component: CreateProductComponent },
   { path: 'updateProduct', canActivate: [AuthGuard], component: UpdateProductComponent },
-  { path: 'categoryCP',  canActivate: [AuthGuard], component: CategoryControlPanelComponent },
+  { path: 'categoriesCP',  canActivate: [AuthGuard], component: CategoryControlPanelComponent },
   { path: 'newCategory', canActivate: [AuthGuard], component: CreateCategoryComponent },
   { path: 'updateCategory', canActivate: [AuthGuard], component: UpdateCategoryComponent },
+  { path: 'cafeteriasCP',  canActivate: [AuthGuard], component: CafeteriaControlPanelComponent },
+  { path: 'newCafeteria', canActivate: [AuthGuard], component: CreateCafeteriaComponent },
+  { path: 'updateCafeteria', canActivate: [AuthGuard], component: UpdateCafeteriaComponent },
   { path: 'collectionsCP', canActivate: [AuthGuard], component: CollectionsControlPanelComponent },
   { path: 'newCollection', canActivate: [AuthGuard], component: CreateCollectionComponent },
   { path: 'updateCollection', canActivate: [AuthGuard], component: UpdateCollectionComponent },
@@ -79,7 +85,10 @@ const appRoutes: Routes = [
     UpdateProductComponent,
     CreateCategoryComponent,
     UpdateCategoryComponent,
-    CategoryControlPanelComponent
+    CategoryControlPanelComponent,
+    CafeteriaControlPanelComponent,
+    CreateCafeteriaComponent,
+    UpdateCafeteriaComponent
   ],
   imports: [
     BrowserModule,

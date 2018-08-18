@@ -1,0 +1,18 @@
+<app-nav-bar></app-nav-bar>
+<div id="page-wrapper">
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Crear Cafetería</h2>
+            <div class="form-group">
+                <input class="form-control" type="text" name="name" placeholder="Campus" maxlength="40" [(ngModel)]="inputName">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="location" placeholder="Localización" maxlength="50" [(ngModel)]="inputLocation">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" (click)="uploadCafeteria()" value="Update File"> Crear </button>
+            </div>   
+            <br> 
+        </form>
+    </div>
+</div>

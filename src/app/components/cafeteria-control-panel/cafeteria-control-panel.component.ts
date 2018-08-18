@@ -14,17 +14,19 @@ import { Card } from '../../interfaces/Card';
 import {AppSettings} from '../../AppSettings';
 import { Product } from '../../interfaces/Product';
 import { Category } from '../../interfaces/Category';
+import { Cafeteria } from '../../interfaces/Cafeteria';
 
 @Component({
-  selector: 'app-category-control-panel',
-  templateUrl: './category-control-panel.component.html',
-  styleUrls: ['./category-control-panel.component.css']
+  selector: 'app-cafeteria-control-panel',
+  templateUrl: './cafeteria-control-panel.component.html',
+  styleUrls: ['./cafeteria-control-panel.component.css']
 })
-export class CategoryControlPanelComponent implements OnInit {
+export class CafeteriaControlPanelComponent implements OnInit {
 
-  itemsTable: Observable<Category[]>;
 
-  items: Category[] = [];
+  itemsTable: Observable<Cafeteria[]>;
+
+  items: Cafeteria[] = [];
 
   inputSearch = '';
   url: any;
@@ -38,7 +40,7 @@ export class CategoryControlPanelComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getAllCategories();
+    this.getAllCafeterias();
   }
 
   /*
@@ -62,9 +64,11 @@ export class CategoryControlPanelComponent implements OnInit {
     }
   }
 
+  
 
-  getAllCategories() {
-    this._dataService.getAllCategories().subscribe(data => {
+  getAllCafeterias() {
+    this._dataService.getAllCafeterias().subscribe(data => {
+      console.log(data);
       this.items = [];
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i]);
@@ -72,28 +76,27 @@ export class CategoryControlPanelComponent implements OnInit {
     });
   }
 
+  
 
   /*
   EN:Function in charge of passing the data of the card to be updated to the service and performing the redirection.
   ES:Función encargada de pasar los datos de la carta a actualizar al servicio y realizar la redirección.
   */
-  updateCategory(id) {
-    this._dataService.changeCategory(this.items[id]);
+  updateCafeteria(id) {
+    this._dataService.changeCafeteria(this.items[id]);
     console.log(this.items[id]);
-    this.router.navigate(['/updateCategory']);
+    this.router.navigate(['/updateCafeteria']);
   }
 
   /*
   EN:Function in charge of making the call for the deletion of a letter.
   ES:Función encargada de realizar la llamada para la eliminación de una carta.
   */
-  deleteCategory(id) {
-    this._dataService.deleteCategory(this.items[id]).subscribe(data => {
-      this.showToast(1, 'Categoría eliminada');
-      this.getAllCategories();
+  deleteCafeteria(id) {
+    this._dataService.deleteCafeteria(this.items[id]).subscribe(data => {
+      this.showToast(1, 'Cafetería eliminada');
+      this.getAllCafeterias();
     });
   }
-
-
 
 }

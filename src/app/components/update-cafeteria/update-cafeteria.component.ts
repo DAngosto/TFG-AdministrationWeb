@@ -17,18 +17,19 @@ import { Product } from '../../interfaces/Product';
 
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { Category } from '../../interfaces/Category';
+import { Cafeteria } from '../../interfaces/Cafeteria';
 
 @Component({
-  selector: 'app-update-category',
-  templateUrl: './update-category.component.html',
-  styleUrls: ['./update-category.component.css']
+  selector: 'app-update-cafeteria',
+  templateUrl: './update-cafeteria.component.html',
+  styleUrls: ['./update-cafeteria.component.css']
 })
-export class UpdateCategoryComponent implements OnInit {
+export class UpdateCafeteriaComponent implements OnInit {
 
-  categoryUpdating: Category;
+  cafeteriaUpdating: Cafeteria;
   selectedFile: File = null;
   inputName = '';
-  inputCategory = '';
+  inputLocation = '';
   inputPrice: number;
   url = '';
   sawImage = false;
@@ -51,7 +52,7 @@ export class UpdateCategoryComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getCategoryForUpdate();
+    this.getCafeteriaForUpdate();
     //this.getAllCategories();
     
   }
@@ -81,12 +82,13 @@ export class UpdateCategoryComponent implements OnInit {
   EN:Function in charge of obtaining the information of the card susceptible to being modified and to introduce its data in the corresponding fields.
   ES:Función encargada de obtener la información de la carta susceptible a ser modificada e introducir sus datos en los campos correspondientes.
   */
-  getCategoryForUpdate() {
-    this._dataService.currentCategoryUpdating.subscribe(categoryUpdating => this.categoryUpdating = categoryUpdating);
-    if (!this.categoryUpdating) {
-      this.router.navigate(['/categoriesCP']);
+  getCafeteriaForUpdate() {
+    this._dataService.currentCafeteriaUpdating.subscribe(cafeteriaUpdating => this.cafeteriaUpdating = cafeteriaUpdating);
+    if (!this.cafeteriaUpdating) {
+      this.router.navigate(['/cafeteriasCP']);
     } else {
-      this.inputName = this.categoryUpdating.name;
+      this.inputName = this.cafeteriaUpdating.campusName;
+      this.inputLocation = this.cafeteriaUpdating.location;
     }
   }
 
@@ -95,14 +97,15 @@ export class UpdateCategoryComponent implements OnInit {
   EN:Function in charge of updating the information of the selected card.
   ES:Función encargada de actualizar la información de la carta seleccionada.
   */
-  updateCategory() {
-    if ((this.categoryUpdating) || ((this.inputName !== '') )) {
-        this.categoryUpdating.name = this.inputName;
-        this._dataService.updateCategory(this.categoryUpdating).subscribe(data => {
-          this.showToast(1, 'Categoría actualizada');
+  updateCafeteria() {
+    if ((this.cafeteriaUpdating) || ((this.inputName !== '') && (this.inputLocation !== '') )) {
+        this.cafeteriaUpdating.campusName = this.inputName;
+        this.cafeteriaUpdating.location = this.inputLocation;
+        this._dataService.updateCafeteria(this.cafeteriaUpdating).subscribe(data => {
+          this.showToast(1, 'cafetería actualizada');
         });
     } else {
-      this.showToast(0, 'El campo nombre no puede estar incompleto');
+      this.showToast(0, 'El campo nombre o localización no pueden estar incompletos');
     }
   }
 

@@ -27,7 +27,7 @@
                     <a><i class="fa fa-image"></i> Categorías </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a routerLink="/categoryCP" routerLinkActive="active">Panel de Control de Categorías</a>
+                            <a routerLink="/categoriesCP" routerLinkActive="active">Panel de Control de Categorías</a>
                         </li>
                         <li>
                             <a routerLink="/newCategory" routerLinkActive="active">Crear una nueva categoría</a>
@@ -35,28 +35,14 @@
                     </ul>
                 </li>
                 <li>
-                    <a ><i class="fa fa-image"></i> Colecciones</a>
+                    <a><i class="fa fa-image"></i> Cafeterías </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a routerLink="/collectionsCP" routerLinkActive="active">Panel de Control de las Colecciones</a>
+                            <a routerLink="/cafeteriasCP" routerLinkActive="active">Panel de Control de Cafeterías</a>
                         </li>
                         <li>
-                            <a routerLink="/newCollection" routerLinkActive="active">Crear una nueva colección</a>
+                            <a routerLink="/newCafeteria" routerLinkActive="active">Crear una nueva cafetería</a>
                         </li>
-                    </ul>
-                </li>
-                <li>
-                    <a routerLink="/GameConfigCP" routerLinkActive="active"><i class="fa fa-cog"></i> Panel de Configuración</a>
-                </li>
-                <li>
-                    <a ><i class="fa fa-bar-chart-o"></i> Estadísticas</a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a routerLink="/AllStatistics" routerLinkActive="active">Todas las Estadísticas</a>
-                        </li>
-                        <li>
-                            <a routerLink="/AllStatisticsCollection" routerLinkActive="active">Todas las Estadísticas de una Colección</a>
-                        </li>   
                     </ul>
                 </li>
                 <li><a (click)= "disconnect()"><i class="fa fa-sign-out fa-fw"></i> Desconectarse</a>

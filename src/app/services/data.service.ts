@@ -14,6 +14,7 @@ import { GamePlayed } from '../interfaces/GamePlayed';
 import {AppSettings} from '../AppSettings';
 import { Product } from '../interfaces/Product';
 import { Category } from '../interfaces/Category';
+import { Cafeteria } from '../interfaces/Cafeteria';
  
 @Injectable()
 export class DataService {
@@ -23,12 +24,12 @@ export class DataService {
     currentProductUpdating = this.messageSource.asObservable();
 
     category: Category;
-    private messageSource3 = new BehaviorSubject<Category>(this.category);
-    currentCategoryUpdating = this.messageSource3.asObservable();
+    private messageSource2 = new BehaviorSubject<Category>(this.category);
+    currentCategoryUpdating = this.messageSource2.asObservable();
 
-    collection: Collection;
-    private messageSource2 = new BehaviorSubject<Collection>(this.collection);
-    currentCollectionUpdating = this.messageSource2.asObservable();
+    cafeteria: Cafeteria;
+    private messageSource3 = new BehaviorSubject<Collection>(this.cafeteria);
+    currentCafeteriaUpdating = this.messageSource3.asObservable();
 
     constructor(private http:HttpClient) {}
 
@@ -96,6 +97,17 @@ export class DataService {
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
         return this.http.get<Category[]>(AppSettings.API_ENDPOINT_CATEGORIES, { headers: headers });
+    }
+
+    getAllCafeterias() {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<Cafeteria[]>(AppSettings.API_ENDPOINT_CAFETERIAS, { headers: headers });
     }
     
 
@@ -193,7 +205,6 @@ export class DataService {
     }
 
     createCategory(name) {
-        console.log(name);
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
         let headers = new HttpHeaders()
@@ -204,6 +215,20 @@ export class DataService {
         };
         let body = JSON.stringify(message);
         return this.http.post(AppSettings.API_ENDPOINT_CATEGORIES , body, { headers: headers });
+    }
+
+    createCafeteria(campusName, location) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+            'campusName': campusName,
+            'location': location
+        };
+        let body = JSON.stringify(message);
+        return this.http.post(AppSettings.API_ENDPOINT_CAFETERIAS , body, { headers: headers });
     }
 
     /*
@@ -237,10 +262,12 @@ export class DataService {
     }
 
     changeCategory(category: Category) {
-        console.log(category);
-        this.messageSource3.next(category);
+        this.messageSource2.next(category);
     }
 
+    changeCafeteria(cafeteria: Cafeteria) {
+        this.messageSource3.next(cafeteria);
+    }
     
 
     //COLLECTION METHODS///
@@ -315,6 +342,20 @@ export class DataService {
         return this.http.put(AppSettings.API_ENDPOINT_CATEGORIES + '/' + category.id, body, { headers: headers });
     }
 
+    updateCafeteria(cafeteria: Cafeteria) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+                "campusName": cafeteria.campusName,
+                'location': cafeteria.location
+        };
+        let body= JSON.stringify(message);
+        return this.http.put(AppSettings.API_ENDPOINT_CAFETERIAS + '/' + cafeteria.id, body, { headers: headers });
+    }
+
     deleteProduct(product: Product){
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
@@ -334,6 +375,17 @@ export class DataService {
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
         return this.http.delete(AppSettings.API_ENDPOINT_CATEGORIES + '/' + category.id, { headers: headers });
+    }
+
+    deleteCafeteria(cafeteria: Cafeteria){
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.delete(AppSettings.API_ENDPOINT_CAFETERIAS + '/' + cafeteria.id, { headers: headers });
     }
 
     
