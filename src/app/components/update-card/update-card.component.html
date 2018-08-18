@@ -1,0 +1,33 @@
+<app-nav-bar></app-nav-bar>
+<div id="page-wrapper">
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Actualizar Carta</h2>
+            <div class="form-group">
+                <input class="form-control" type="text" name="name" placeholder="Nombre" maxlength="40" [(ngModel)]="inputName">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="5" name="history" placeholder="Historia" maxlength="1000" [(ngModel)]="inputHistory"></textarea>
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" name="tags" placeholder="Etiquetas" [(ngModel)]="inputTags">
+                <p class="text-info">En el caso de querer poner mas de una etiqueta, introducirlas de la manera Etiqueta1, Etiqueta2, Etiqueta3...</p>
+            </div>
+            <input type="file" (change)="onFileSelected($event)">
+            <div id="preview" class="preview" *ngIf="sawImage">
+                <br>
+                <img [src] = "url">
+            </div>
+            <br>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" (click)="updateCard()" value="Update File"> Actualizar </button>
+            </div>   
+            <br> 
+        </form>
+    </div>
+</div>
+
+
+
+
+

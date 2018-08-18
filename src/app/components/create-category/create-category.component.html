@@ -1,0 +1,16 @@
+<app-nav-bar></app-nav-bar>
+<div id="page-wrapper">
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Crear Categoría</h2>
+            <div class="form-group">
+                <input class="form-control" type="text" name="name" placeholder="Nombre" maxlength="40" [(ngModel)]="inputName">
+            </div>
+            <br>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" (click)="uploadCategory()" value="Update File"> Crear </button>
+            </div>   
+            <br> 
+        </form>
+    </div>
+</div>

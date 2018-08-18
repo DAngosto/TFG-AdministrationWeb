@@ -1,0 +1,33 @@
+<app-nav-bar></app-nav-bar>
+<div id="page-wrapper">
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Crear Producto</h2>
+            <div class="form-group">
+                <input class="form-control" type="text" name="name" placeholder="Nombre" maxlength="40" [(ngModel)]="inputName">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="number" step=".01" name="price" placeholder="Precio" [(ngModel)]="inputPrice">
+            </div>
+            <label>Categoria</label>
+            <select #categoryInput class="form-control-sm" (change)="setCategory($event.target.value)">
+                <option  *ngFor="let item of items">{{item}}</option>
+            </select><br>
+            <label>Estado del Stock: </label>
+            <select #stockInput class="form-control-sm" (change)="setStockStatus($event.target.value)">
+                <option>Agotado</option>
+                <option>Disponible</option>
+            </select>
+            <input type="file" (change)="onFileSelected($event)">
+            <div id="preview" class="preview" *ngIf="sawImage">
+                <br>
+                <img [src] = "url">
+            </div>
+            <br>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" (click)="uploadProduct()" value="Update File"> Crear </button>
+            </div>   
+            <br> 
+        </form>
+    </div>
+</div>
