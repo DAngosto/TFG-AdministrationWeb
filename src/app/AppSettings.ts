@@ -12,6 +12,8 @@ export class AppSettings {
     public static API_ENDPOINT_ORDERS = 'http://localhost:8084/appcafeteriaucam/data/orders';
     public static API_ENDPOINT_PRODUCTALLERGENS = 'http://localhost:8084/appcafeteriaucam/data/productallergens';
     public static API_ENDPOINT_REVIEWS = 'http://localhost:8084/appcafeteriaucam/data/reviews';
+    public static API_ENDPOINT_USERSAVEDORDERS = 'http://localhost:8084/appcafeteriaucam/data/usersavedorders';
+
 
 
 

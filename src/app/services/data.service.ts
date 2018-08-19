@@ -18,6 +18,7 @@ import { Cafeteria } from '../interfaces/Cafeteria';
 import { Order } from '../interfaces/Order';
 import { ProductAllergens } from '../interfaces/ProductAllergens';
 import { Review } from '../interfaces/Review';
+import { UserSavedOrder } from '../interfaces/UserSavedOrder';
  
 @Injectable()
 export class DataService {
@@ -145,6 +146,18 @@ export class DataService {
             .set('Authorization', authorization);
         return this.http.get<Review[]>(AppSettings.API_ENDPOINT_REVIEWS, { headers: headers });
     }
+
+    getAllUserSavedOrders() {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<UserSavedOrder[]>(AppSettings.API_ENDPOINT_USERSAVEDORDERS, { headers: headers });
+    }
+
 
     /*
     EN:Function in charge of obtaining all the existing API collections.
