@@ -4,6 +4,6 @@ export interface Order {
     products: string;
     totalPrice: number;
     cafeteria: string;
-    activatedDate: string;
+    activatedDate: Date;
     status: number;
 }/// END OF INTERFACE GamePlayed ///

@@ -26,7 +26,7 @@
                                 <td >{{ item.userEmail }}</td>
                                 <td >{{ item.totalPrice }}</td>
                                 <td >{{ item.cafeteria }}</td>
-                                <td >{{ item.activatedDate }}</td>
+                                <td >{{item.activatedDate | date: 'dd-MM-yyyy'}}</td>
                                 <td *ngIf="item.status =='0' ">Pendiente de Aceptación</td>
                                 <td *ngIf="item.status =='1' ">En proceso</td>
                                 <td *ngIf="item.status =='2' ">Finalizado</td>
