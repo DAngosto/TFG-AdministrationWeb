@@ -205,11 +205,13 @@ export class UpdateProductComponent implements OnInit {
       const aux = this.productUpdating.name;
 
       var flag = false;
+      if (this.productUpdating.name !== this.inputName) {
       for (let i = 0; i < this.products.length; i++) {
         if (this.products[i] === this.inputName) {
           flag = true;
           break;
         }
+      }
       }
       if (flag) {
         this.showToast(0, 'El nombre del producto ya está siendo ocupado, por favor introduzca otro diferente');

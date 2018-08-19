@@ -8,15 +8,15 @@ import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { Product } from '../../interfaces/Product';
 
 @Component({
-  selector: 'app-create-category',
-  templateUrl: './create-category.component.html',
-  styleUrls: ['./create-category.component.css']
+  selector: 'app-create-userrole',
+  templateUrl: './create-userrole.component.html',
+  styleUrls: ['./create-userrole.component.css']
 })
-export class CreateCategoryComponent implements OnInit {
+export class CreateUserroleComponent implements OnInit {
 
   selectedFile: File = null;
   inputName = '';
-  inputCategory = '';
+  inputDescription = '';
   inputPrice: number;
   url: string = "";
   prevImage: boolean = false;
@@ -40,7 +40,7 @@ export class CreateCategoryComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getAllCategories();
+    this.getAllUserRoles();
   }
 
   /*
@@ -64,8 +64,8 @@ export class CreateCategoryComponent implements OnInit {
     }
   }
 
-  getAllCategories() {
-    this._dataService.getAllCategories().subscribe(data => {
+  getAllUserRoles() {
+    this._dataService.getAllUserRoles().subscribe(data => {
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i].name);
       }
@@ -73,8 +73,8 @@ export class CreateCategoryComponent implements OnInit {
   }
 
 
-  uploadCategory() {
-    if (this.inputName !== '') {
+  uploadUserRole() {
+    if ((this.inputName !== '') && (this.inputDescription !== '')) {
       let repeated = false;
       for (let i = 0; i < this.items.length; i++) {
         if (this.items[i] === this.inputName) {
@@ -82,14 +82,15 @@ export class CreateCategoryComponent implements OnInit {
         }
       }
       if (!repeated) {
-        this._dataService.createCategory(this.inputName).subscribe(data => {
-          this.showToast(1, 'Categoría creada');
+        this._dataService.createUserRole(this.inputName, this.inputDescription).subscribe(data => {
+          this.showToast(1, 'Role de usuario creado');
         });
       } else {
-        this.showToast(0, 'La Categoria introducida ya existe actualmente');
+        this.showToast(0, 'El rol introducido ya existe actualmente');
       }
     } else {
-      this.showToast(0, 'El campo nombre estaba incompleto, por favor introduce la información correspondiente');
+      this.showToast(0, 'Los campos nombre o Descripción estaban incompletos, por favor introduce la información correspondiente');
     }
   }
+
 }

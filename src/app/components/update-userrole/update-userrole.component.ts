@@ -17,19 +17,19 @@ import { Product } from '../../interfaces/Product';
 
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { Category } from '../../interfaces/Category';
-import { Cafeteria } from '../../interfaces/Cafeteria';
+import { UserRole } from '../../interfaces/UserRole';
 
 @Component({
-  selector: 'app-update-cafeteria',
-  templateUrl: './update-cafeteria.component.html',
-  styleUrls: ['./update-cafeteria.component.css']
+  selector: 'app-update-userrole',
+  templateUrl: './update-userrole.component.html',
+  styleUrls: ['./update-userrole.component.css']
 })
-export class UpdateCafeteriaComponent implements OnInit {
+export class UpdateUserroleComponent implements OnInit {
 
-  cafeteriaUpdating: Cafeteria;
+  userRoleUpdating: UserRole;
   selectedFile: File = null;
   inputName = '';
-  inputLocation = '';
+  inputDescription = '';
   inputPrice: number;
   url = '';
   sawImage = false;
@@ -52,9 +52,9 @@ export class UpdateCafeteriaComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getCafeteriaForUpdate();
-    this.getAllCafeterias();
-    //this.getAllCategories();
+    this.getUserRoleForUpdate();
+    this.getAllUserRoles();
+        //this.getAllCategories();
     
   }
 
@@ -83,22 +83,21 @@ export class UpdateCafeteriaComponent implements OnInit {
   EN:Function in charge of obtaining the information of the card susceptible to being modified and to introduce its data in the corresponding fields.
   ES:Función encargada de obtener la información de la carta susceptible a ser modificada e introducir sus datos en los campos correspondientes.
   */
-  getCafeteriaForUpdate() {
-    this._dataService.currentCafeteriaUpdating.subscribe(cafeteriaUpdating => this.cafeteriaUpdating = cafeteriaUpdating);
-    if (!this.cafeteriaUpdating) {
-      this.router.navigate(['/cafeteriasCP']);
+ getUserRoleForUpdate() {
+    this._dataService.currentUserRoleUpdating.subscribe(userRoleUpdating => this.userRoleUpdating = userRoleUpdating);
+    if (!this.userRoleUpdating) {
+      this.router.navigate(['/userRolesCP']);
     } else {
-      this.inputName = this.cafeteriaUpdating.campusName;
-      this.inputLocation = this.cafeteriaUpdating.location;
+      this.inputName = this.userRoleUpdating.name;
+      this.inputDescription = this.userRoleUpdating.description;
     }
   }
 
-  getAllCafeterias() {
-    this._dataService.getAllCafeterias().subscribe(data => {
-      console.log(data);
+  getAllUserRoles() {
+    this._dataService.getAllUserRoles().subscribe(data => {
       this.items = [];
       for (let i = 0; i < data.length; i++) {
-        this.items.push(data[i].location);
+        this.items.push(data[i].name);
       }
     });
   }
@@ -108,28 +107,29 @@ export class UpdateCafeteriaComponent implements OnInit {
   EN:Function in charge of updating the information of the selected card.
   ES:Función encargada de actualizar la información de la carta seleccionada.
   */
-  updateCafeteria() {
-    if ((this.cafeteriaUpdating) || ((this.inputName !== '') && (this.inputLocation !== '') )) {
+  updateCategory() {
+    if ((this.userRoleUpdating) || ((this.inputName !== '') && (this.inputDescription !== '') )) {
       var flag = false;
-      if (this.cafeteriaUpdating.location !== this.inputLocation) {
+      if (this.userRoleUpdating.name !== this.inputName) {
       for (let i = 0; i < this.items.length; i++) {
-        if (this.items[i] === this.inputLocation) {
+        if (this.items[i] === this.inputName) {
           flag = true;
           break;
         }
       }
       }
       if (flag) {
-        this.showToast(0, 'La localización de la cafeteria ya está siendo ocupada, por favor introduzca otra diferente');
+        this.showToast(0, 'El nombre del rol ya está siendo ocupado, por favor introduzca otro diferente');
       } else {
-        this.cafeteriaUpdating.campusName = this.inputName;
-        this.cafeteriaUpdating.location = this.inputLocation;
-        this._dataService.updateCafeteria(this.cafeteriaUpdating).subscribe(data => {
-          this.showToast(1, 'cafetería actualizada');
+        var firstName = this.userRoleUpdating.name;
+        this.userRoleUpdating.name = this.inputName;
+        this.userRoleUpdating.description = this.inputDescription;
+        this._dataService.updateUserRole(this.userRoleUpdating, firstName).subscribe(data => {
+          this.showToast(1, 'Rol de usuario actualizado');
         });
       }
     } else {
-      this.showToast(0, 'El campo nombre o localización no pueden estar incompletos');
+      this.showToast(0, 'El campo nombre o descripción no puede estar incompletos');
     }
   }
 

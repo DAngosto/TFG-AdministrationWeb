@@ -52,6 +52,7 @@ export class UpdateCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.getCategoryForUpdate();
+    this.getAllCategories();
     //this.getAllCategories();
     
   }
@@ -90,6 +91,15 @@ export class UpdateCategoryComponent implements OnInit {
     }
   }
 
+  getAllCategories() {
+    this._dataService.getAllCategories().subscribe(data => {
+      this.items = [];
+      for (let i = 0; i < data.length; i++) {
+        this.items.push(data[i].name);
+      }
+    });
+  }
+
 
   /*
   EN:Function in charge of updating the information of the selected card.
@@ -97,10 +107,23 @@ export class UpdateCategoryComponent implements OnInit {
   */
   updateCategory() {
     if ((this.categoryUpdating) || ((this.inputName !== '') )) {
+      var flag = false;
+      if (this.categoryUpdating.name !== this.inputName) {
+      for (let i = 0; i < this.items.length; i++) {
+        if (this.items[i] === this.inputName) {
+          flag = true;
+          break;
+        }
+      }
+      }
+      if (flag) {
+        this.showToast(0, 'El nombre de la categoría ya está siendo utilizado, por favor introduzca otro diferente');
+      } else {
         this.categoryUpdating.name = this.inputName;
         this._dataService.updateCategory(this.categoryUpdating).subscribe(data => {
           this.showToast(1, 'Categoría actualizada');
         });
+      }
     } else {
       this.showToast(0, 'El campo nombre no puede estar incompleto');
     }

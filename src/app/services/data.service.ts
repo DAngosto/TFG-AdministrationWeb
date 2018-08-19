@@ -19,6 +19,8 @@ import { Order } from '../interfaces/Order';
 import { ProductAllergens } from '../interfaces/ProductAllergens';
 import { Review } from '../interfaces/Review';
 import { UserSavedOrder } from '../interfaces/UserSavedOrder';
+import { UserRole } from '../interfaces/UserRole';
+import { User } from '../interfaces/User';
  
 @Injectable()
 export class DataService {
@@ -34,6 +36,12 @@ export class DataService {
     cafeteria: Cafeteria;
     private messageSource3 = new BehaviorSubject<Cafeteria>(this.cafeteria);
     currentCafeteriaUpdating = this.messageSource3.asObservable();
+
+    userRole: UserRole;
+    private messageSource4 = new BehaviorSubject<UserRole>(this.userRole);
+    currentUserRoleUpdating = this.messageSource4.asObservable();
+
+    
 
     constructor(private http:HttpClient) {}
 
@@ -156,6 +164,28 @@ export class DataService {
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
         return this.http.get<UserSavedOrder[]>(AppSettings.API_ENDPOINT_USERSAVEDORDERS, { headers: headers });
+    }
+
+    getAllUserRoles() {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<UserRole[]>(AppSettings.API_ENDPOINT_USERSROLES, { headers: headers });
+    }
+
+    getAllUsersByRole(id) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<Userer[]>(AppSettings.API_ENDPOINT_USERSBYROLEID + '/' + id, { headers: headers });
     }
 
 
@@ -306,6 +336,20 @@ export class DataService {
         return this.http.post(AppSettings.API_ENDPOINT_PRODUCTALLERGENS , body, { headers: headers });
     }
 
+    createUserRole(name, description) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+            'name': name,
+            'description': description
+        };
+        let body = JSON.stringify(message);
+        return this.http.post(AppSettings.API_ENDPOINT_USERSROLES , body, { headers: headers });
+    }
+
     /*
     EN:Function in charge of updating the information stored in a card in the API.
     ES:Función encargada de actualizar la información almacenada de una carta en la API.
@@ -343,7 +387,10 @@ export class DataService {
     changeCafeteria(cafeteria: Cafeteria) {
         this.messageSource3.next(cafeteria);
     }
-    
+
+    changeUserRole(userRole: UserRole) {
+        this.messageSource4.next(userRole);
+    }
 
     //COLLECTION METHODS///
     /*
@@ -386,7 +433,7 @@ export class DataService {
         return this.http.put(AppSettings.API_ENDPOINT_ITEMS + '/' + product.name, body, { headers: headers });
     }
 
-    updateProduct(product: Product, lastname: string) {
+    updateProduct(product: Product, firstname: string) {
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
         let headers = new HttpHeaders()
@@ -401,7 +448,7 @@ export class DataService {
         };
         console.log(message);
         let body= JSON.stringify(message);
-        return this.http.put(AppSettings.API_ENDPOINT_ITEMS + '/' + lastname, body, { headers: headers });
+        return this.http.put(AppSettings.API_ENDPOINT_ITEMS + '/' + firstname, body, { headers: headers });
     }
 
     updateCategory(category: Category) {
@@ -458,6 +505,20 @@ export class DataService {
         return this.http.put(AppSettings.API_ENDPOINT_PRODUCTALLERGENS + '/' + productAllergens.productName, body, { headers: headers });
     }
 
+    updateUserRole(userRole: UserRole, firstName: string) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+                "name": userRole.name,
+                'description': userRole.description
+        };
+        let body= JSON.stringify(message);
+        return this.http.put(AppSettings.API_ENDPOINT_USERSROLES + '/' + firstName, body, { headers: headers });
+    }
+
     deleteProduct(product: Product){
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
@@ -488,6 +549,17 @@ export class DataService {
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
         return this.http.delete(AppSettings.API_ENDPOINT_CAFETERIAS + '/' + cafeteria.id, { headers: headers });
+    }
+
+    deleteUserRole(name){
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.delete(AppSettings.API_ENDPOINT_USERSROLES + '/' + name, { headers: headers });
     }
 
     

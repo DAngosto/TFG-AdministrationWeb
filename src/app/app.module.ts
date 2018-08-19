@@ -42,6 +42,9 @@ import { UpdateCafeteriaComponent } from './components/update-cafeteria/update-c
 import { OrdersControlPanelComponent } from './components/orders-control-panel/orders-control-panel.component';
 import { ReviewsControlPanelComponent } from './components/reviews-control-panel/reviews-control-panel.component';
 import { UsersavedordersControlPanelComponent } from './components/usersavedorders-control-panel/usersavedorders-control-panel.component';
+import { UserrolesControlPanelComponent } from './components/userroles-control-panel/userroles-control-panel.component';
+import { UpdateUserroleComponent } from './components/update-userrole/update-userrole.component';
+import { CreateUserroleComponent } from './components/create-userrole/create-userrole.component';
 
 
 
@@ -61,6 +64,9 @@ const appRoutes: Routes = [
   { path: 'ordersCP',  canActivate: [AuthGuard], component: OrdersControlPanelComponent },
   { path: 'reviewsCP',  canActivate: [AuthGuard], component: ReviewsControlPanelComponent },
   { path: 'userSavedOrdersCP',  canActivate: [AuthGuard], component: UsersavedordersControlPanelComponent },
+  { path: 'userRolesCP',  canActivate: [AuthGuard], component: UserrolesControlPanelComponent },
+  { path: 'newUserRole', canActivate: [AuthGuard], component: CreateUserroleComponent },
+  { path: 'updateUserRole', canActivate: [AuthGuard], component: UpdateUserroleComponent },
   { path: 'collectionsCP', canActivate: [AuthGuard], component: CollectionsControlPanelComponent },
   { path: 'newCollection', canActivate: [AuthGuard], component: CreateCollectionComponent },
   { path: 'updateCollection', canActivate: [AuthGuard], component: UpdateCollectionComponent },
@@ -97,7 +103,10 @@ const appRoutes: Routes = [
     UpdateCafeteriaComponent,
     OrdersControlPanelComponent,
     ReviewsControlPanelComponent,
-    UsersavedordersControlPanelComponent
+    UsersavedordersControlPanelComponent,
+    UserrolesControlPanelComponent,
+    UpdateUserroleComponent,
+    CreateUserroleComponent
   ],
   imports: [
     BrowserModule,
