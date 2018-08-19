@@ -9,6 +9,8 @@ export class AppSettings {
     public static API_ENDPOINT_ITEMS = 'http://localhost:8084/appcafeteriaucam/data/products';
     public static API_ENDPOINT_CATEGORIES = 'http://localhost:8084/appcafeteriaucam/data/categories';
     public static API_ENDPOINT_CAFETERIAS = 'http://localhost:8084/appcafeteriaucam/data/cafeterias';
+    public static API_ENDPOINT_ORDERS = 'http://localhost:8084/appcafeteriaucam/data/orders';
+
 
 
     public static API_ENDPOINT_CONFIG = 'https://gameserver.centic.ovh/config';

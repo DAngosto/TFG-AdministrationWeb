@@ -15,6 +15,7 @@ import {AppSettings} from '../AppSettings';
 import { Product } from '../interfaces/Product';
 import { Category } from '../interfaces/Category';
 import { Cafeteria } from '../interfaces/Cafeteria';
+import { Order } from '../interfaces/Order';
  
 @Injectable()
 export class DataService {
@@ -28,7 +29,7 @@ export class DataService {
     currentCategoryUpdating = this.messageSource2.asObservable();
 
     cafeteria: Cafeteria;
-    private messageSource3 = new BehaviorSubject<Collection>(this.cafeteria);
+    private messageSource3 = new BehaviorSubject<Cafeteria>(this.cafeteria);
     currentCafeteriaUpdating = this.messageSource3.asObservable();
 
     constructor(private http:HttpClient) {}
@@ -108,6 +109,17 @@ export class DataService {
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
         return this.http.get<Cafeteria[]>(AppSettings.API_ENDPOINT_CAFETERIAS, { headers: headers });
+    }
+
+    getAllOrders() {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<Order[]>(AppSettings.API_ENDPOINT_ORDERS, { headers: headers });
     }
     
 
@@ -394,6 +406,8 @@ export class DataService {
     EN:Function in charge of saving a collection so its information can be passed between the components.
     ES:Función encargada de guardar una colección para que entre los componentes puedan pasarse su información.
     */
+
+    /*
     changeCollection(collection: Collection) {
         this.messageSource2.next(collection);
     }

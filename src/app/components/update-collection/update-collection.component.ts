@@ -48,7 +48,7 @@ export class UpdateCollectionComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.getCollectionForUpdate();
+    //this.getCollectionForUpdate();
     this.getAllItems();
   }
 
@@ -77,6 +77,7 @@ export class UpdateCollectionComponent implements OnInit {
   EN:Function in charge of obtaining the information of the collection susceptible to being modified and to introduce its data in the corresponding fields.
   ES:Función encargada de obtener la información de la colección susceptible a ser modificada e introducir sus datos en los campos correspondientes.
   */
+ /*
   getCollectionForUpdate() {
     this.sawCollection = true;
     this._dataService.currentCollectionUpdating.subscribe(collectionUpdating => this.collectionUpdating = collectionUpdating);
@@ -124,6 +125,7 @@ export class UpdateCollectionComponent implements OnInit {
       });
     }
   }
+  */
 
   /*
   EN:Function in charge of creating a Card object with the data provided.
