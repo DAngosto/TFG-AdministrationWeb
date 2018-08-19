@@ -16,6 +16,7 @@ import { Product } from '../interfaces/Product';
 import { Category } from '../interfaces/Category';
 import { Cafeteria } from '../interfaces/Cafeteria';
 import { Order } from '../interfaces/Order';
+import { ProductAllergens } from '../interfaces/ProductAllergens';
  
 @Injectable()
 export class DataService {
@@ -121,7 +122,17 @@ export class DataService {
             .set('Authorization', authorization);
         return this.http.get<Order[]>(AppSettings.API_ENDPOINT_ORDERS, { headers: headers });
     }
-    
+
+    getProductAllergens(productName: string) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<ProductAllergens>(AppSettings.API_ENDPOINT_PRODUCTALLERGENS + '/' + productName, { headers: headers });
+    }
 
     /*
     EN:Function in charge of obtaining all the existing API collections.
@@ -241,6 +252,33 @@ export class DataService {
         };
         let body = JSON.stringify(message);
         return this.http.post(AppSettings.API_ENDPOINT_CAFETERIAS , body, { headers: headers });
+    }
+
+    createProductAllergens(productAllergens: ProductAllergens) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+            "productName": productAllergens.productName,
+            "gluten": productAllergens.gluten,
+            "crustaceos": productAllergens.crustaceos,
+            "huevos": productAllergens.huevos,
+            "pescado": productAllergens.pescado,
+            "cacahuetes": productAllergens.cacahuetes,
+            "soja": productAllergens.soja,
+            "lacteos": productAllergens.lacteos,
+            "frutosSecos": productAllergens.frutosSecos,
+            "apio": productAllergens.apio,
+            "mostaza": productAllergens.mostaza,
+            "sesamo": productAllergens.sesamo,
+            "sulfitos": productAllergens.sulfitos,
+            "altramuz": productAllergens.altramuz,
+            "moluscos": productAllergens.moluscos
+        };
+        let body = JSON.stringify(message);
+        return this.http.post(AppSettings.API_ENDPOINT_PRODUCTALLERGENS , body, { headers: headers });
     }
 
     /*
@@ -366,6 +404,33 @@ export class DataService {
         };
         let body= JSON.stringify(message);
         return this.http.put(AppSettings.API_ENDPOINT_CAFETERIAS + '/' + cafeteria.id, body, { headers: headers });
+    }
+
+    updateProductAllergens(productAllergens: ProductAllergens) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+            "productName": productAllergens.productName,
+            "gluten": productAllergens.gluten,
+            "crustaceos": productAllergens.crustaceos,
+            "huevos": productAllergens.huevos,
+            "pescado": productAllergens.pescado,
+            "cacahuetes": productAllergens.cacahuetes,
+            "soja": productAllergens.soja,
+            "lacteos": productAllergens.lacteos,
+            "frutosSecos": productAllergens.frutosSecos,
+            "apio": productAllergens.apio,
+            "mostaza": productAllergens.mostaza,
+            "sesamo": productAllergens.sesamo,
+            "sulfitos": productAllergens.sulfitos,
+            "altramuz": productAllergens.altramuz,
+            "moluscos": productAllergens.moluscos
+        };
+        let body= JSON.stringify(message);
+        return this.http.put(AppSettings.API_ENDPOINT_PRODUCTALLERGENS + '/' + productAllergens.productName, body, { headers: headers });
     }
 
     deleteProduct(product: Product){

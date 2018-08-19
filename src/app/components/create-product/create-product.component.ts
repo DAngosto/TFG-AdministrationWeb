@@ -6,6 +6,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { DataService } from '../../services/data.service';
 import { Ng2ImgToolsService } from 'ng2-img-tools';
 import { Product } from '../../interfaces/Product';
+import { ProductAllergens } from '../../interfaces/ProductAllergens';
 
 @Component({
   selector: 'app-create-product',
@@ -18,8 +19,8 @@ export class CreateProductComponent implements OnInit {
   inputName = '';
   inputCategory = '';
   inputPrice: number;
-  url: string = "";
-  prevImage: boolean = false;
+  url = '';
+  prevImage = false;
 
   items: String[] = [];
 
@@ -30,7 +31,13 @@ export class CreateProductComponent implements OnInit {
 
   selectedStatus: number;
 
-  selectedCategory: string;
+  selectedCategory: String;
+
+  productAllergens: ProductAllergens;
+
+
+  products: String[] = [];
+
 
   @ViewChild('stockInput') stockStatusInput: ElementRef;
   @ViewChild('categoryInput') categoryInput: ElementRef;
@@ -43,6 +50,9 @@ export class CreateProductComponent implements OnInit {
 
   ngOnInit() {
     this.getAllCategories();
+    this.getAllProducts();
+    this.productAllergens =  this.setProductAllergens(0,'',false,false,false,false,false,false,false,false,false,false,false,false,false,false);
+
   }
 
   /*
@@ -70,6 +80,16 @@ export class CreateProductComponent implements OnInit {
     this._dataService.getAllCategories().subscribe(data => {
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i].name);
+      }
+      if (this.items.length > 0) {this.selectedCategory = this.items[0]; }
+    });
+  }
+
+  getAllProducts() {
+    this.products = [];
+    this._dataService.getAllProducts().subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
+          this.products.push(data[i].name);
       }
     });
   }
@@ -101,6 +121,53 @@ export class CreateProductComponent implements OnInit {
     }
   }
 
+  setAllergen(id, status) {
+    switch (id) {
+      case 0:
+        if (status === 'No') {this.productAllergens.gluten = false; } else {this.productAllergens.gluten = true; }
+        break;
+      case 1:
+        if (status === 'No') {this.productAllergens.crustaceos = false; } else {this.productAllergens.crustaceos = true; }
+        break;
+      case 2:
+        if (status === 'No') {this.productAllergens.huevos = false; } else {this.productAllergens.huevos = true; }
+        break;
+      case 3:
+        if (status === 'No') {this.productAllergens.pescado = false; } else {this.productAllergens.pescado = true; }
+        break;
+      case 4:
+        if (status === 'No') {this.productAllergens.cacahuetes = false; } else {this.productAllergens.cacahuetes = true; }
+        break;
+      case 5:
+        if (status === 'No') {this.productAllergens.soja = false; } else {this.productAllergens.soja = true; }
+        break;
+      case 6:
+        if (status === 'No') {this.productAllergens.lacteos = false; } else {this.productAllergens.lacteos = true; }
+        break;
+      case 7:
+        if (status === 'No') {this.productAllergens.frutosSecos = false; } else {this.productAllergens.frutosSecos = true; }
+        break;
+      case 8:
+        if (status === 'No') {this.productAllergens.apio = false; } else {this.productAllergens.apio = true; }
+        break;
+      case 9:
+        if (status === 'No') {this.productAllergens.mostaza = false; } else {this.productAllergens.mostaza = true; }
+        break;
+      case 10:
+        if (status === 'No') {this.productAllergens.sesamo = false; } else {this.productAllergens.sesamo = true; }
+        break;
+      case 11:
+        if (status === 'No') {this.productAllergens.sulfitos = false; } else {this.productAllergens.sulfitos = true; }
+        break;
+      case 12:
+        if (status === 'No') {this.productAllergens.altramuz = false; } else {this.productAllergens.altramuz = true; }
+        break;
+      case 13:
+        if (status === 'No') {this.productAllergens.moluscos = false; } else {this.productAllergens.moluscos = true; }
+        break;
+    }
+  }
+
   setCategory(categoryname) {
     this.selectedCategory = categoryname;
   }
@@ -111,33 +178,56 @@ export class CreateProductComponent implements OnInit {
   */
   uploadProduct() {
     if (this.selectedFile) {
-      if((this.inputName !== '') && (this.selectedCategory !== '') && (this.inputPrice !== NaN)) {
-        const fd = new FormData();
-        console.log(this.selectedFile);
-        this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 50, 50).subscribe(result => {
-          fd.append('File', result, this.selectedFile.name);
-          this._dataService.uploadProductFile(fd).subscribe(data => {
-          const fileURL = data['file'];
-          /*
-          this.aux.name = this.inputName;
-          this.aux.category = this.inputCategory;
-          this.aux.price = this.inputPrice;
-          this.aux.imageURL = fileURL;
-          this.aux.stock = this.selectedStatus;
-          console.log(this.aux);
-          */
-          this._dataService.createProduct(this.inputName, this.selectedCategory, this.inputPrice, 
-                                          fileURL, this.selectedStatus).subscribe(data => {
-            this.showToast(1, 'Producto creado');
+      if ((this.inputName !== '') && (this.selectedCategory !== null) && (this.inputPrice !== NaN)) {
+        var flag = false;
+        for (let i = 0; i < this.products.length; i++) {
+          if (this.products[i] === this.inputName) {
+            flag = true;
+            break;
+          }
+        }
+        if (flag) {
+          this.showToast(0, 'El nombre del producto ya está siendo ocupado, por favor introduzca otro diferente');
+        } else {
+          const fd = new FormData();
+          this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 50, 50).subscribe(result => {
+            fd.append('File', result, this.selectedFile.name);
+            this._dataService.uploadProductFile(fd).subscribe(data => {
+            const fileURL = data['file'];
+            this._dataService.createProduct(this.inputName, this.selectedCategory, this.inputPrice,
+                                            fileURL, this.selectedStatus).subscribe(data => {
+              this.showToast(1, 'Producto creado');
+              this.productAllergens.productName = this.inputName;
+              this._dataService.createProductAllergens(this.productAllergens).subscribe(data => {
+              });
+            });
           });
         });
-      });
-      } else{
+        }
+      } else {
         this.showToast(0, 'Los campos nombre o historia estaban incompletos, por favor introduce la información correspondiente');
       }
     } else {
       this.showToast(0, '¡Selecciona una imagen antes de intentar crear un nuevo producto!');
     }
   }
+
+  setProductAllergens(id,productName,gluten,crustaceos,huevos,pescado,cacahuetes,soja,lacteos,frutosSecos,apio,mostaza,sesamo,sulfitos,altramuz,moluscos) : ProductAllergens{
+    var aux: ProductAllergens = {id,productName,gluten,crustaceos,huevos,pescado,cacahuetes,soja,lacteos,frutosSecos,apio,mostaza,sesamo,sulfitos,altramuz,moluscos};
+    aux.gluten = gluten;
+    aux.crustaceos = crustaceos;
+    aux.huevos = huevos;
+    aux.pescado = pescado;
+    aux.soja = soja;
+    aux.lacteos = lacteos;
+    aux.frutosSecos = frutosSecos;
+    aux.apio = apio;
+    aux.mostaza = mostaza;
+    aux.sesamo = sesamo;
+    aux.sulfitos = sulfitos;
+    aux.altramuz = altramuz;
+    aux.moluscos = moluscos;
+    return aux;
+}
 
 }

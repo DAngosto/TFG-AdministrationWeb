@@ -16,6 +16,7 @@ import {AppSettings} from '../../AppSettings';
 import { Product } from '../../interfaces/Product';
 
 import { Ng2ImgToolsService } from 'ng2-img-tools';
+import { ProductAllergens } from '../../interfaces/ProductAllergens';
 
 
 @Component({
@@ -41,10 +42,32 @@ export class UpdateProductComponent implements OnInit {
 
   selectedCategory: string;
 
+  productAllergens: ProductAllergens;
+
+  allergensFlag = false;
+
+  products: String[] = [];
+
 
 
   @ViewChild('stockInput') stockStatusInput: ElementRef;
   @ViewChild('categoryInput') categoryInput: ElementRef;
+
+  @ViewChild('glutenInput') glutenInput: ElementRef;
+  @ViewChild('crustaceosInput') crustaceosInput: ElementRef;
+  @ViewChild('huevosInput') huevosInput: ElementRef;
+  @ViewChild('pescadoInput') pescadoInput: ElementRef;
+  @ViewChild('cacahuetesInput') cacahuetesInput: ElementRef;
+  @ViewChild('sojaInput') sojaInput: ElementRef;
+  @ViewChild('lacteosInput') lacteosInput: ElementRef;
+  @ViewChild('frutosSecosInput') frutosSecosInput: ElementRef;
+  @ViewChild('apioInput') apioInput: ElementRef;
+  @ViewChild('mostazaInput') mostazaInput: ElementRef;
+  @ViewChild('sesamoInput') sesamoInput: ElementRef;
+  @ViewChild('sulfitosInput') sulfitosInput: ElementRef;
+  @ViewChild('altramuzInput') altramuzInput: ElementRef;
+  @ViewChild('moluscosInput') moluscosInput: ElementRef;
+
 
 
   constructor(private _dataService: DataService, private router: Router, public toastr: ToastsManager,
@@ -55,8 +78,7 @@ export class UpdateProductComponent implements OnInit {
 
   ngOnInit() {
     this.getProductForUpdate();
-    //this.getAllCategories();
-    
+    this.getAllProducts();
   }
 
   /*
@@ -95,12 +117,30 @@ export class UpdateProductComponent implements OnInit {
       } else if (this.selectedStatus === 1 ) {
         this.stockStatusInput.nativeElement.value = 'Disponible';
       }
-      this.inputName = this.productUpdating.name;
-      this.selectedCategory = this.productUpdating.category;
-      this.items.push(this.selectedCategory);
-      this.inputPrice = this.productUpdating.price;
-      this.url = this.productUpdating.imageURL;
-      this.sawImage = true;
+
+      this._dataService.getProductAllergens(this.productUpdating.name).subscribe(data => {
+        this.productAllergens = data;
+        if (this.productAllergens.gluten === false) {this.glutenInput.nativeElement.value = 'No'; } else {this.glutenInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.crustaceos === false) {this.crustaceosInput.nativeElement.value = 'No'; } else {this.crustaceosInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.huevos === false) {this.huevosInput.nativeElement.value = 'No'; } else {this.huevosInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.pescado === false) {this.pescadoInput.nativeElement.value = 'No'; } else {this.pescadoInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.cacahuetes === false) {this.cacahuetesInput.nativeElement.value = 'No'; } else {this.cacahuetesInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.soja === false) {this.sojaInput.nativeElement.value = 'No'; } else {this.sojaInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.lacteos === false) {this.lacteosInput.nativeElement.value = 'No'; } else {this.lacteosInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.frutosSecos === false) {this.frutosSecosInput.nativeElement.value = 'No'; } else {this.frutosSecosInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.apio === false) {this.apioInput.nativeElement.value = 'No'; } else {this.apioInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.mostaza === false) {this.mostazaInput.nativeElement.value = 'No'; } else {this.mostazaInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.sesamo === false) {this.sesamoInput.nativeElement.value = 'No'; } else {this.sesamoInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.sulfitos === false) {this.sulfitosInput.nativeElement.value = 'No'; } else {this.sulfitosInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.altramuz === false) {this.altramuzInput.nativeElement.value = 'No'; } else {this.altramuzInput.nativeElement.value = 'Sí'; }
+        if (this.productAllergens.moluscos === false) {this.moluscosInput.nativeElement.value = 'No'; } else {this.moluscosInput.nativeElement.value = 'Sí'; }
+        this.inputName = this.productUpdating.name;
+        this.selectedCategory = this.productUpdating.category;
+        this.items.push(this.selectedCategory);
+        this.inputPrice = this.productUpdating.price;
+        this.url = this.productUpdating.imageURL;
+        this.sawImage = true;
+      });
     }
   }
 
@@ -109,6 +149,15 @@ export class UpdateProductComponent implements OnInit {
       this.items = [];
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i].name);
+      }
+    });
+  }
+
+  getAllProducts() {
+    this.products = [];
+    this._dataService.getAllProducts().subscribe(data => {
+      for (let i = 0; i < data.length; i++) {
+          this.products.push(data[i].name);
       }
     });
   }
@@ -154,36 +203,103 @@ export class UpdateProductComponent implements OnInit {
   updateProduct() {
     if ((this.productUpdating) || ((this.inputName !== '') && (this.selectedCategory !== '') && (this.inputPrice !== NaN))) {
       const aux = this.productUpdating.name;
-      if (!this.imgChanged) {
-        this.productUpdating.name = this.inputName;
-        this.productUpdating.category = this.selectedCategory;
-        this.productUpdating.price = this.inputPrice;
-        this.productUpdating.imageURL = null;
-        this.productUpdating.stock = this.selectedStatus;
-        console.log(this.productUpdating.stock);
-        this._dataService.updateProduct(this.productUpdating, aux).subscribe(data => {
-          this.showToast(1, 'Producto actualizado');
-        });
+
+      var flag = false;
+      for (let i = 0; i < this.products.length; i++) {
+        if (this.products[i] === this.inputName) {
+          flag = true;
+          break;
+        }
+      }
+      if (flag) {
+        this.showToast(0, 'El nombre del producto ya está siendo ocupado, por favor introduzca otro diferente');
       } else {
-        const fd = new FormData();
-        this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 50, 50).subscribe(result => {
-          fd.append('File', result, this.selectedFile.name);
-          this._dataService.uploadProductFile(fd).subscribe(data => {
-          const fileURL = data['file'];
+        if (!this.imgChanged) {
           this.productUpdating.name = this.inputName;
           this.productUpdating.category = this.selectedCategory;
           this.productUpdating.price = this.inputPrice;
-          this.productUpdating.imageURL = fileURL;
+          this.productUpdating.imageURL = null;
           this.productUpdating.stock = this.selectedStatus;
-          console.log(this.productUpdating);
           this._dataService.updateProduct(this.productUpdating, aux).subscribe(data => {
             this.showToast(1, 'Producto actualizado');
           });
+        } else {
+          const fd = new FormData();
+          this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 50, 50).subscribe(result => {
+            fd.append('File', result, this.selectedFile.name);
+            this._dataService.uploadProductFile(fd).subscribe(data => {
+            const fileURL = data['file'];
+            this.productUpdating.name = this.inputName;
+            this.productUpdating.category = this.selectedCategory;
+            this.productUpdating.price = this.inputPrice;
+            this.productUpdating.imageURL = fileURL;
+            this.productUpdating.stock = this.selectedStatus;
+            this._dataService.updateProduct(this.productUpdating, aux).subscribe(data => {
+              this.showToast(1, 'Producto actualizado');
+            });
+          });
         });
-      });
+        }
+        if (this.allergensFlag) {
+          this.productAllergens.productName = this.productUpdating.name;
+          this._dataService.updateProductAllergens(this.productAllergens).subscribe(data => {
+          });
+        }
       }
     } else {
       this.showToast(0, 'Los campos nombre o categoría o precio estaban incompletos, por favor introduce la información correspondiente');
     }
   }
+
+  setAllergen(id, status) {
+    this.allergensFlag = true;
+    switch (id) {
+      case 0:
+        if (status === 'No') {this.productAllergens.gluten = false; } else {this.productAllergens.gluten = true; }
+        break;
+      case 1:
+        if (status === 'No') {this.productAllergens.crustaceos = false; } else {this.productAllergens.crustaceos = true; }
+        break;
+      case 2:
+        if (status === 'No') {this.productAllergens.huevos = false; } else {this.productAllergens.huevos = true; }
+        break;
+      case 3:
+        if (status === 'No') {this.productAllergens.pescado = false; } else {this.productAllergens.pescado = true; }
+        break;
+      case 4:
+        if (status === 'No') {this.productAllergens.cacahuetes = false; } else {this.productAllergens.cacahuetes = true; }
+        break;
+      case 5:
+        if (status === 'No') {this.productAllergens.soja = false; } else {this.productAllergens.soja = true; }
+        break;
+      case 6:
+        if (status === 'No') {this.productAllergens.lacteos = false; } else {this.productAllergens.lacteos = true; }
+        break;
+      case 7:
+        if (status === 'No') {this.productAllergens.frutosSecos = false; } else {this.productAllergens.frutosSecos = true; }
+        break;
+      case 8:
+        if (status === 'No') {this.productAllergens.apio = false; } else {this.productAllergens.apio = true; }
+        break;
+      case 9:
+        if (status === 'No') {this.productAllergens.mostaza = false; } else {this.productAllergens.mostaza = true; }
+        break;
+      case 10:
+        if (status === 'No') {this.productAllergens.sesamo = false; } else {this.productAllergens.sesamo = true; }
+        break;
+      case 11:
+        if (status === 'No') {this.productAllergens.sulfitos = false; } else {this.productAllergens.sulfitos = true; }
+        break;
+      case 12:
+        if (status === 'No') {this.productAllergens.altramuz = false; } else {this.productAllergens.altramuz = true; }
+        break;
+      case 13:
+        if (status === 'No') {this.productAllergens.moluscos = false; } else {this.productAllergens.moluscos = true; }
+        break;
+    }
+  }
+
+
+
+
 }

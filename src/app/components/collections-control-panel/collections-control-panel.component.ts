@@ -135,6 +135,7 @@ export class CollectionsControlPanelComponent implements OnInit {
   EN:Function in charge of passing the data of the collection to be updated to the service and performing the redirection.
   ES:Función encargada de pasar los datos de la colección a actualizar al servicio y realizar la redirección.
   */
+ /*
   updateCollection(id){
     this._dataService.changeCollection(this.collections[id]);
     this.router.navigate(["/updateCollection"]);

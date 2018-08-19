@@ -14,14 +14,97 @@
                 <select #categoryInput class="form-control-sm"  (change)="setCategory($event.target.value)" (click)="updateCategories()">
                     <option  *ngFor="let item of items">{{item}}</option>
                 </select><br>
-            
-      
-            
             <label>Estado del Stock: </label>
             <select #stockInput class="form-control-sm" (change)="setStockStatus($event.target.value)">
                 <option>Agotado</option>
                 <option>Disponible</option>
             </select>
+            <br><br>
+            <label> Alérgenos </label><br>
+            <label>Contiene gluten: </label>
+            <select #glutenInput class="form-control-sm" (change)="setAllergen(0,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene crustaceos: </label>
+            <select #crustaceosInput class="form-control-sm" (change)="setAllergen(1,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene huevos: </label>
+            <select #huevosInput class="form-control-sm" (change)="setAllergen(2,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene pescado: </label>
+            <select #pescadoInput class="form-control-sm" (change)="setAllergen(3,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene cacahuetes: </label>
+            <select #cacahuetesInput class="form-control-sm" (change)="setAllergen(4,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene soja: </label>
+            <select #sojaInput class="form-control-sm" (change)="setAllergen(5,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene lacteos: </label>
+            <select #lacteosInput class="form-control-sm" (change)="setAllergen(6,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene frutos secos: </label>
+            <select #frutosSecosInput class="form-control-sm" (change)="setAllergen(7,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene apio: </label>
+            <select #apioInput class="form-control-sm" (change)="setAllergen(8,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene mostaza: </label>
+            <select #mostazaInput class="form-control-sm" (change)="setAllergen(9,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene sesamo: </label>
+            <select #sesamoInput class="form-control-sm" (change)="setAllergen(10,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene sulfitos: </label>
+            <select #sulfitosInput class="form-control-sm" (change)="setAllergen(11,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene altramuz: </label>
+            <select #altramuzInput class="form-control-sm" (change)="setAllergen(12,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br>
+            <label>Contiene moluscos: </label>
+            <select #moluscosInput class="form-control-sm" (change)="setAllergen(13,$event.target.value)">
+                <option>No</option>
+                <option>Sí</option>
+            </select>
+            <br><br>
             <input type="file" (change)="onFileSelected($event)">
             <div id="preview" class="preview" *ngIf="sawImage">
                 <br>

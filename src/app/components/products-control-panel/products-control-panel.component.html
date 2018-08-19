@@ -19,6 +19,7 @@
                                 <th>Precio</th>
                                 <th>Stock</th>
                                 <th class="text-center">Cambiar Estado Stock</th>
+                                <th class="text-center">Alérgenos</th>
                                 <th class="text-center">Actualizar</th>
                                 <th class="text-center">Eliminar</th>
                             </tr>
@@ -29,9 +30,10 @@
                                 <td >{{ item.name }}</td>
                                 <td>{{ item.category }}</td>
                                 <td>{{ item.price }}</td>
-                                <td *ngIf="item.stock =='0' ">Agotado</td>
-                                <td *ngIf="item.stock =='1' ">Disponible</td>
+                                <td *ngIf="item.stock =='0'">Agotado</td>
+                                <td *ngIf="item.stock =='1'">Disponible</td>
                                 <td class="text-center"><button class="btn btn-warning btn-circle" (click)= "swapStockStatus(i)" ><i class="fa fa-bomb"></i></button></td>
+                                <td class="text-center"><button class="btn btn-info btn-circle" (click)= "sawProductAllergens(i)" data-toggle="modal" data-target="#myModal"><i class="fa fa-search-plus"></i></button></td>
                                 <td class="text-center"><button class="btn btn-info btn-circle" (click)= "updateProduct(i)" ><i class="fa fa-pencil"></i></button></td>
                                 <td class="text-center"><button type="button" class="btn btn-danger btn-circle" (click)= "deleteProduct(i)"><i class="fa fa-times"></i></button></td>
                             </tr>
@@ -40,6 +42,37 @@
                 </div>
             </div>
         </div>
-    </div>           
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="text-center" id="myModalLabel">Alérgenos del producto</h3>
+                </div>
+                <div class="modal-body">
+                    <br>
+                    <img [src]=gluten *ngIf="productAllergensDisplay.gluten">
+                    <img [src]=huevos *ngIf="productAllergensDisplay.huevos">
+                    <img [src]=pescado *ngIf="productAllergensDisplay.pescado">
+                    <img [src]=cacahuetes *ngIf="productAllergensDisplay.cacahuetes">
+                    <img [src]=soja *ngIf="productAllergensDisplay.soja">
+                    <img [src]=lacteos *ngIf="productAllergensDisplay.lacteos">
+                    <img [src]=frutosSecos *ngIf="productAllergensDisplay.frutosSecos">
+                    <img [src]=apio *ngIf="productAllergensDisplay.apio">
+                    <img [src]=mostaza *ngIf="productAllergensDisplay.mostaza">
+                    <img [src]=sesamo *ngIf="productAllergensDisplay.sesamo">
+                    <img [src]=sulfitos *ngIf="productAllergensDisplay.sulfitos">
+                    <img [src]=altramuz *ngIf="productAllergensDisplay.altramuz">
+                    <img [src]=moluscos *ngIf="productAllergensDisplay.moluscos">
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>            
 </div>
 

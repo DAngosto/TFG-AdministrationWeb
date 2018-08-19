@@ -13,6 +13,7 @@ import { Card } from '../../interfaces/Card';
 // SETTINGS
 import {AppSettings} from '../../AppSettings';
 import { Product } from '../../interfaces/Product';
+import { ProductAllergens } from '../../interfaces/ProductAllergens';
 
 @Component({
   selector: 'app-products-control-panel',
@@ -31,6 +32,26 @@ export class ProductsControlPanelComponent implements OnInit {
   historyDisplay: any;
   tagsDisplay: any;
   visualizeImage = false;
+
+  productAllergensDisplay: ProductAllergens;
+
+  gluten: string="";
+  crustaceos: string="";
+  huevos: string="";
+  pescado: string="";
+  soja: string="";
+  lacteos: string="";
+  frutosSecos: string="";
+  apio: string="";
+  mostaza: string="";
+  sesamo: string="";
+  sulfitos: string="";
+  altramuz: string="";
+  moluscos: string="";
+  cacahuetes: string="";
+
+
+
 
   constructor(private _dataService: DataService,  private router: Router, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -75,9 +96,27 @@ export class ProductsControlPanelComponent implements OnInit {
       }
       if (this.items.length === 0) {
         this.showToast(2, 'No hay productos creados');
+      } else {
+        this.productAllergensDisplay = this.setProductAllergens(0,'',false,false,false,false,false,false,false,false,false,false,false,false,false,false);
+        this.gluten='../../assets/images/gluten.png';
+        this.crustaceos='../../assets/images/crustaceos.png';
+        this.huevos='../../assets/images/huevos.png';
+        this.pescado='../../assets/images/pescado.png';
+        this.soja='../../assets/images/soja.png';
+        this.lacteos='../../assets/images/lacteos.png';
+        this.frutosSecos='../../assets/images/frutosSecos.png';
+        this.apio='../../assets/images/apio.png';
+        this.mostaza='../../assets/images/mostaza.png';
+        this.sesamo='../../assets/images/sesamo.png';
+        this.sulfitos='../../assets/images/sulfitos.png';
+        this.altramuz='../../assets/images/altramuz.png';
+        this.moluscos='../../assets/images/moluscos.png';
+        this.cacahuetes='../../assets/images/cacahuetes.png';
       }
     });
   }
+
+  
 
   /*
   EN:Function in charge of performing a specific search obtaining those cards that have the tag entered.
@@ -153,5 +192,30 @@ export class ProductsControlPanelComponent implements OnInit {
       this.getSpecificItems(this.inputSearch);
     }
   }
+
+  sawProductAllergens(id) {
+    this.productAllergensDisplay = this.setProductAllergens(0,'',false,false,false,false,false,false,false,false,false,false,false,false,false,false);
+    this._dataService.getProductAllergens(this.items[id].name).subscribe(data => {
+      this.productAllergensDisplay = data;
+    });
+  }
+
+  setProductAllergens(id,productName,gluten,crustaceos,huevos,pescado,cacahuetes,soja,lacteos,frutosSecos,apio,mostaza,sesamo,sulfitos,altramuz,moluscos) : ProductAllergens{
+    var aux: ProductAllergens = {id,productName,gluten,crustaceos,huevos,pescado,cacahuetes,soja,lacteos,frutosSecos,apio,mostaza,sesamo,sulfitos,altramuz,moluscos};
+    aux.gluten = gluten;
+    aux.crustaceos = crustaceos;
+    aux.huevos = huevos;
+    aux.pescado = pescado;
+    aux.soja = soja;
+    aux.lacteos = lacteos;
+    aux.frutosSecos = frutosSecos;
+    aux.apio = apio;
+    aux.mostaza = mostaza;
+    aux.sesamo = sesamo;
+    aux.sulfitos = sulfitos;
+    aux.altramuz = altramuz;
+    aux.moluscos = moluscos;
+    return aux;
+}
 
 }
