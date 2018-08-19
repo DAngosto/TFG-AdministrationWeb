@@ -40,6 +40,7 @@ import { CafeteriaControlPanelComponent } from './components/cafeteria-control-p
 import { CreateCafeteriaComponent } from './components/create-cafeteria/create-cafeteria.component';
 import { UpdateCafeteriaComponent } from './components/update-cafeteria/update-cafeteria.component';
 import { OrdersControlPanelComponent } from './components/orders-control-panel/orders-control-panel.component';
+import { ReviewsControlPanelComponent } from './components/reviews-control-panel/reviews-control-panel.component';
 
 
 
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
   { path: 'newCafeteria', canActivate: [AuthGuard], component: CreateCafeteriaComponent },
   { path: 'updateCafeteria', canActivate: [AuthGuard], component: UpdateCafeteriaComponent },
   { path: 'ordersCP',  canActivate: [AuthGuard], component: OrdersControlPanelComponent },
+  { path: 'reviewsCP',  canActivate: [AuthGuard], component: ReviewsControlPanelComponent },
   { path: 'collectionsCP', canActivate: [AuthGuard], component: CollectionsControlPanelComponent },
   { path: 'newCollection', canActivate: [AuthGuard], component: CreateCollectionComponent },
   { path: 'updateCollection', canActivate: [AuthGuard], component: UpdateCollectionComponent },
@@ -91,7 +93,8 @@ const appRoutes: Routes = [
     CafeteriaControlPanelComponent,
     CreateCafeteriaComponent,
     UpdateCafeteriaComponent,
-    OrdersControlPanelComponent
+    OrdersControlPanelComponent,
+    ReviewsControlPanelComponent
   ],
   imports: [
     BrowserModule,

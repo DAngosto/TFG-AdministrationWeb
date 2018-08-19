@@ -1,0 +1,56 @@
+<app-nav-bar></app-nav-bar>
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="text-center">Panel de Control de Opiniones</h2> 
+                </div>
+                <div id="dataTables-example_filter" class="text-center">
+                  <label >Búsqueda:<input type="search" class="form-control input-sm" placeholder="Usuario"  (keyup.enter)="doSpecificSearch()" [(ngModel)]="inputSearch"></label>
+              </div>
+                <div class="panel-body">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Producto</th>
+                                <th>Puntuación</th>
+                                <th>Visualizar Opinión</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of items ; let i = index">
+                                <td >{{ item.userEmail }}</td>
+                                <td >{{ item.productName }}</td>
+                                <td >{{ item.rating }}</td>
+                                <td class="text-center"><button class="btn btn-info btn-circle" (click)= "sawDescription(i)" data-toggle="modal" data-target="#myModal"><i class="fa fa-search-plus"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h3 class="text-center" id="myModalLabel">Opinión</h3>
+              </div>
+              <div class="modal-body">
+                  <br>
+                  <div class="text-center">
+                  </div>
+                   <textarea class="form-control" id="disabledInput" type="text" placeholder="{{ descriptionDisplay }}" disabled></textarea>
+                  <br>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+          </div>
+      </div>
+  </div>              
+</div>
