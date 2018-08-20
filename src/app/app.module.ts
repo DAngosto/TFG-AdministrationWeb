@@ -45,6 +45,10 @@ import { UsersavedordersControlPanelComponent } from './components/usersavedorde
 import { UserrolesControlPanelComponent } from './components/userroles-control-panel/userroles-control-panel.component';
 import { UpdateUserroleComponent } from './components/update-userrole/update-userrole.component';
 import { CreateUserroleComponent } from './components/create-userrole/create-userrole.component';
+import { UsersControlPanelComponent } from './components/users-control-panel/users-control-panel.component';
+import { CreateWorkerComponent } from './components/create-worker/create-worker.component';
+import { UpdateWorkerComponent } from './components/update-worker/update-worker.component';
+import { WorkingpermitsControlPanelComponent } from './components/workingpermits-control-panel/workingpermits-control-panel.component';
 
 
 
@@ -67,6 +71,10 @@ const appRoutes: Routes = [
   { path: 'userRolesCP',  canActivate: [AuthGuard], component: UserrolesControlPanelComponent },
   { path: 'newUserRole', canActivate: [AuthGuard], component: CreateUserroleComponent },
   { path: 'updateUserRole', canActivate: [AuthGuard], component: UpdateUserroleComponent },
+  { path: 'usersCP',  canActivate: [AuthGuard], component: UsersControlPanelComponent },
+  { path: 'newWorkerTeam', canActivate: [AuthGuard], component: CreateWorkerComponent },
+  { path: 'updateWorkerTeam', canActivate: [AuthGuard], component: UpdateWorkerComponent },
+  { path: 'workingPermitsCP',  canActivate: [AuthGuard], component: WorkingpermitsControlPanelComponent },
   { path: 'collectionsCP', canActivate: [AuthGuard], component: CollectionsControlPanelComponent },
   { path: 'newCollection', canActivate: [AuthGuard], component: CreateCollectionComponent },
   { path: 'updateCollection', canActivate: [AuthGuard], component: UpdateCollectionComponent },
@@ -106,7 +114,11 @@ const appRoutes: Routes = [
     UsersavedordersControlPanelComponent,
     UserrolesControlPanelComponent,
     UpdateUserroleComponent,
-    CreateUserroleComponent
+    CreateUserroleComponent,
+    UsersControlPanelComponent,
+    CreateWorkerComponent,
+    UpdateWorkerComponent,
+    WorkingpermitsControlPanelComponent
   ],
   imports: [
     BrowserModule,

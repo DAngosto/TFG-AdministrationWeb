@@ -87,7 +87,7 @@ export class UserrolesControlPanelComponent implements OnInit {
   }
 
 
-  getAllUsersByRoleId(i) {
+  getAllUsersByRoleName(i) {
     this._dataService.getAllUsersByRole(this.items[i].id).subscribe(data => {
       if (data.length > 0) {
         this.showToast(0, 'No es posible borrar el rol debido a que existen usuarios perteneciendo a dicho rol actualmente.');
@@ -101,7 +101,7 @@ export class UserrolesControlPanelComponent implements OnInit {
   }
 
   deleteUserRole(i) {
-    this.getAllUsersByRoleId(i);
+    this.getAllUsersByRoleName(i);
   }
 
 }

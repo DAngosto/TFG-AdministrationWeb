@@ -21,6 +21,7 @@ import { Review } from '../interfaces/Review';
 import { UserSavedOrder } from '../interfaces/UserSavedOrder';
 import { UserRole } from '../interfaces/UserRole';
 import { User } from '../interfaces/User';
+import { WorkingPermit } from '../interfaces/WorkingPermit';
  
 @Injectable()
 export class DataService {
@@ -40,6 +41,10 @@ export class DataService {
     userRole: UserRole;
     private messageSource4 = new BehaviorSubject<UserRole>(this.userRole);
     currentUserRoleUpdating = this.messageSource4.asObservable();
+
+    user: User;
+    private messageSource5 = new BehaviorSubject<User>(this.user);
+    currentUserUpdating = this.messageSource5.asObservable();
 
     
 
@@ -177,6 +182,17 @@ export class DataService {
         return this.http.get<UserRole[]>(AppSettings.API_ENDPOINT_USERSROLES, { headers: headers });
     }
 
+    getAllUsers() {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<User[]>(AppSettings.API_ENDPOINT_USERS, { headers: headers });
+    }
+
     getAllUsersByRole(id) {
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
@@ -185,7 +201,51 @@ export class DataService {
             .set('Access-Control-Allow-Origin', 'true')
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
-        return this.http.get<Userer[]>(AppSettings.API_ENDPOINT_USERSBYROLEID + '/' + id, { headers: headers });
+        return this.http.get<User[]>(AppSettings.API_ENDPOINT_USERSBYROLEID + '/' + id, { headers: headers });
+    }
+
+    getUserById(id) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<User>(AppSettings.API_ENDPOINT_USERSBYID + '/' + id, { headers: headers });
+    }
+
+    getRoleByName(name) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<UserRole>(AppSettings.API_ENDPOINT_USERSROLES + '/' + name, { headers: headers });
+    }
+
+    getAllWorkingPermitsOfUser(userid) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<WorkingPermit[]>(AppSettings.API_ENDPOINT_WORKINGPERMITS + '/' + userid, { headers: headers });
+    }
+
+    getAllWorkingPermits() {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<WorkingPermit[]>(AppSettings.API_ENDPOINT_WORKINGPERMITS, { headers: headers });
     }
 
 
@@ -350,6 +410,38 @@ export class DataService {
         return this.http.post(AppSettings.API_ENDPOINT_USERSROLES , body, { headers: headers });
     }
 
+    createWorkerTeam(email, pwd, role) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+            "email": email,
+            "hashedPassword": pwd,
+            "firstName": ' ',
+            "lastName": ' ',
+            "imageURL": 'files/users/default.png',
+            "userRoleId": role
+        };
+        let body = JSON.stringify(message);
+        return this.http.post(AppSettings.API_ENDPOINT_USERS , body, { headers: headers });
+    }
+
+    createWorkingPermit(idUser, idCafeteria) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+            "userId": idUser,
+            "cafeteriaId": idCafeteria
+        };
+        let body = JSON.stringify(message);
+        return this.http.post(AppSettings.API_ENDPOINT_WORKINGPERMITS , body, { headers: headers });
+    }
+
     /*
     EN:Function in charge of updating the information stored in a card in the API.
     ES:Función encargada de actualizar la información almacenada de una carta en la API.
@@ -390,6 +482,10 @@ export class DataService {
 
     changeUserRole(userRole: UserRole) {
         this.messageSource4.next(userRole);
+    }
+
+    changeUser(user: User) {
+        this.messageSource5.next(user);
     }
 
     //COLLECTION METHODS///
@@ -560,6 +656,28 @@ export class DataService {
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
         return this.http.delete(AppSettings.API_ENDPOINT_USERSROLES + '/' + name, { headers: headers });
+    }
+
+    deleteUser(name){
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.delete(AppSettings.API_ENDPOINT_USERS + '/' + name + '.', { headers: headers });
+    }
+
+    deleteWorkingPermit(id){
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.delete(AppSettings.API_ENDPOINT_WORKINGPERMITS + '/' + id, { headers: headers });
     }
 
     

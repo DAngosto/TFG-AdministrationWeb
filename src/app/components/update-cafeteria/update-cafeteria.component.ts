@@ -95,7 +95,6 @@ export class UpdateCafeteriaComponent implements OnInit {
 
   getAllCafeterias() {
     this._dataService.getAllCafeterias().subscribe(data => {
-      console.log(data);
       this.items = [];
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i].location);

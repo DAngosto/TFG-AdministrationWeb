@@ -1,0 +1,20 @@
+<app-nav-bar></app-nav-bar>
+<div id="page-wrapper">
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Añadir Permiso de Trabajo</h2>
+            <div class="form-group">
+                <input class="form-control" type="text" name="name" placeholder="Email" maxlength="40" [(ngModel)]="inputName" disabled>
+            </div>
+            <label >Nueva Cafetería Asociada: </label>
+            <select #searchInput class="form-control-sm" (change)="setSelectedCafeteria($event.target.value)">
+                <option  ></option>
+                <option  *ngFor="let cafeteria of cafeterias">{{cafeteria.location}}</option>
+            </select>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" (click)="createNewWorkingPermit()" value="Update File"> Añadir </button>
+            </div>   
+            <br> 
+        </form>
+    </div>
+</div>
