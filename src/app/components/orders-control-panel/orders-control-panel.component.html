@@ -24,14 +24,15 @@
                         <tbody>
                             <tr *ngFor="let item of items ; let i = index">
                                 <td >{{ item.userEmail }}</td>
-                                <td >{{ item.totalPrice }}</td>
+                                <td >{{ item.totalPrice }} euros</td>
                                 <td >{{ item.cafeteria }}</td>
                                 <td >{{item.activatedDate | date: 'dd-MM-yyyy'}}</td>
                                 <td *ngIf="item.status =='0' ">Pendiente de Aceptación</td>
                                 <td *ngIf="item.status =='1' ">En proceso</td>
-                                <td *ngIf="item.status =='2' ">Finalizado</td>
+                                <td *ngIf="item.status =='2' ">Pediente de Pagar y Recoger por Cliente</td>
+                                <td *ngIf="item.status =='3' ">Cliente nunca apareció</td>
+                                <td *ngIf="item.status =='4' ">Finalizado</td>
                                 <td class="text-center"><button class="btn btn-info btn-circle" (click)= "sawProducts(i)" data-toggle="modal" data-target="#myModal"><i class="fa fa-search-plus"></i></button></td>
-
                             </tr>
                         </tbody>
                     </table>

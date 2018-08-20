@@ -28,5 +28,6 @@ export class AppSettings {
 
 
 
+
     public static API_ENDPOINT_CONFIG = 'https://gameserver.centic.ovh/config';
 }

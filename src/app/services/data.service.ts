@@ -46,6 +46,10 @@ export class DataService {
     private messageSource5 = new BehaviorSubject<User>(this.user);
     currentUserUpdating = this.messageSource5.asObservable();
 
+    order: Order;
+    private messageSource6 = new BehaviorSubject<Order>(this.order);
+    currentOrderWatching = this.messageSource6.asObservable();
+
     
 
     constructor(private http:HttpClient) {}
@@ -204,6 +208,17 @@ export class DataService {
         return this.http.get<User[]>(AppSettings.API_ENDPOINT_USERSBYROLEID + '/' + id, { headers: headers });
     }
 
+    getUserByEmail(email) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.get<User>(AppSettings.API_ENDPOINT_USERS + '/' + email + '.', { headers: headers });
+    }
+
     getUserById(id) {
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
@@ -279,13 +294,13 @@ export class DataService {
     EN:Function in charge of obtaining a specific item from the API.
     ES:Función encargada de obtener un item en concreto de la API.
     */
-    getItem(id){
+    getProductByName(name){
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
         let headers = new HttpHeaders()
             .set('Content-Type', 'application/json')
             .set('Authorization', authorization);
-        return this.http.get(AppSettings.API_ENDPOINT_ITEMS + '/' + id, { headers: headers });
+        return this.http.get<Product>(AppSettings.API_ENDPOINT_ITEMS + '/' + name, { headers: headers });
     }
 
     /*
@@ -488,6 +503,10 @@ export class DataService {
         this.messageSource5.next(user);
     }
 
+    changeOrder(order: Order) {
+        this.messageSource6.next(order);
+    }
+
     //COLLECTION METHODS///
     /*
     EN:Function in charge of creating the new collection in the API.
@@ -613,6 +632,19 @@ export class DataService {
         };
         let body= JSON.stringify(message);
         return this.http.put(AppSettings.API_ENDPOINT_USERSROLES + '/' + firstName, body, { headers: headers });
+    }
+
+    updateOrder(order: Order, id) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+                "status": order.status
+        };
+        let body= JSON.stringify(message);
+        return this.http.put(AppSettings.API_ENDPOINT_ORDERS + '/' + id, body, { headers: headers });
     }
 
     deleteProduct(product: Product){

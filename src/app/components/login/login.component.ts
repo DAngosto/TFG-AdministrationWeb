@@ -39,8 +39,11 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('tokenUser', token);
             localStorage.setItem('username', this.inputUser);
             localStorage.setItem('role', data['role']);
-
-            this.router.navigate(["/dashboard"]);
+            if (data['role'] === 'Admin') {
+              this.router.navigate(["/dashboard"]);
+            } else if (data['role'] === 'WorkerTeam') {
+              this.router.navigate(["/workerOrdersCP"]);
+            }
          },
          error => {
            this.toastr.error("Usuario o contraseña incorrectos");

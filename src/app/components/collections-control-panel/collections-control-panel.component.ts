@@ -102,6 +102,8 @@ export class CollectionsControlPanelComponent implements OnInit {
   EN:Function in charge of inserting the information of a collection in the modal window.
   ES:Función encargada de introducir la información de una colección en la ventana modal.
   */
+
+  /*
   sawCollection(id){
     this.collectiondisplaying = this.collections[id].name;
     var cardsCollection = this.collections[id].cards.split(',');
@@ -147,6 +149,7 @@ export class CollectionsControlPanelComponent implements OnInit {
   ES:Función encargada de recorrer todas las colecciones creadas con el estado publish a true para ver si alguna de las cartas de la colección a eliminar pertenece 
      a otra existente publicada. En el caso de pertenecer a otra su estado publish no variaría. En el caso contrario su estadio publish pasaría a ser false.
   */
+ /*
   deleteCollection(id){
     this.collections[id].publish = false;
     var cardsCheck = this.collections[id].cards.split(',');

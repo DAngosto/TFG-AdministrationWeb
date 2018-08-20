@@ -114,6 +114,7 @@ export class GameConfigurationPanelComponent implements OnInit {
   EN:Function in charge of inserting the information of a collection in the modal window.
   ES:Función encargada de introducir la información de una colección en la ventana modal.
   */
+ /*
   sawCollection(id){
     this.collectiondisplaying = this.collections[id].name;
     var cardsCollection = this.collections[id].cards.split(',');

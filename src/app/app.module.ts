@@ -50,6 +50,7 @@ import { CreateWorkerComponent } from './components/create-worker/create-worker.
 import { UpdateWorkerComponent } from './components/update-worker/update-worker.component';
 import { WorkingpermitsControlPanelComponent } from './components/workingpermits-control-panel/workingpermits-control-panel.component';
 import { WorkerordersControlPanelComponent } from './components/workerorders-control-panel/workerorders-control-panel.component';
+import { WorkerorderdetailsControlPanelComponent } from './components/workerorderdetails-control-panel/workerorderdetails-control-panel.component';
 
 
 
@@ -76,6 +77,9 @@ const appRoutes: Routes = [
   { path: 'newWorkerTeam', canActivate: [AuthGuard], component: CreateWorkerComponent },
   { path: 'updateWorkerTeam', canActivate: [AuthGuard], component: UpdateWorkerComponent },
   { path: 'workingPermitsCP',  canActivate: [AuthGuard], component: WorkingpermitsControlPanelComponent },
+  { path: 'workerOrdersCP',  canActivate: [AuthGuard], component: WorkerordersControlPanelComponent },
+  { path: 'workerOrderDetailsCP',  canActivate: [AuthGuard], component: WorkerorderdetailsControlPanelComponent },
+
   { path: 'collectionsCP', canActivate: [AuthGuard], component: CollectionsControlPanelComponent },
   { path: 'newCollection', canActivate: [AuthGuard], component: CreateCollectionComponent },
   { path: 'updateCollection', canActivate: [AuthGuard], component: UpdateCollectionComponent },
@@ -120,7 +124,8 @@ const appRoutes: Routes = [
     CreateWorkerComponent,
     UpdateWorkerComponent,
     WorkingpermitsControlPanelComponent,
-    WorkerordersControlPanelComponent
+    WorkerordersControlPanelComponent,
+    WorkerorderdetailsControlPanelComponent
   ],
   imports: [
     BrowserModule,
