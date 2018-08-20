@@ -38,6 +38,8 @@ export class LoginComponent implements OnInit {
             let token = data['token'];
             localStorage.setItem('tokenUser', token);
             localStorage.setItem('username', this.inputUser);
+            localStorage.setItem('role', data['role']);
+
             this.router.navigate(["/dashboard"]);
          },
          error => {

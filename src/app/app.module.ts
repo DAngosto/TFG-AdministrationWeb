@@ -49,6 +49,7 @@ import { UsersControlPanelComponent } from './components/users-control-panel/use
 import { CreateWorkerComponent } from './components/create-worker/create-worker.component';
 import { UpdateWorkerComponent } from './components/update-worker/update-worker.component';
 import { WorkingpermitsControlPanelComponent } from './components/workingpermits-control-panel/workingpermits-control-panel.component';
+import { WorkerordersControlPanelComponent } from './components/workerorders-control-panel/workerorders-control-panel.component';
 
 
 
@@ -118,7 +119,8 @@ const appRoutes: Routes = [
     UsersControlPanelComponent,
     CreateWorkerComponent,
     UpdateWorkerComponent,
-    WorkingpermitsControlPanelComponent
+    WorkingpermitsControlPanelComponent,
+    WorkerordersControlPanelComponent
   ],
   imports: [
     BrowserModule,

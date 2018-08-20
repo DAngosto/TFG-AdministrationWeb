@@ -8,11 +8,11 @@
                 <li class="sidebar-search">
                     <h4 class="text-center">Sesión iniciada como </h4>
                     <h4 class="text-center">{{ username }}</h4>
-                </li>
-                <li>
+                </li> 
+                <li *ngIf="userRole == 'Admin'">
                     <a routerLink="/dashboard" routerLinkActive="active"><i class="fa fa-dashboard fa-fw"></i> Panel General</a>
                 </li>
-                <li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Usuarios </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -26,7 +26,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Productos </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -37,7 +37,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Categorías </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -48,7 +48,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Cafeterías </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -59,7 +59,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Pedidos </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -67,7 +67,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Opiniones de los Productos </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -75,7 +75,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Pedidos Almacenados por Usuarios </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -83,7 +83,7 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Roles de Usuario </a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -94,6 +94,14 @@
                         </li>
                     </ul>
                 </li>
+                <li *ngIf="userRole == 'WorkerTeam'">
+                        <a><i class="fa fa-image"></i> Panel de Pedidos </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a routerLink="/userRolesCP" routerLinkActive="active">Panel de Control de Pedidos</a>
+                            </li>
+                        </ul>
+                    </li>
                 <li><a (click)= "disconnect()"><i class="fa fa-sign-out fa-fw"></i> Desconectarse</a>
             </ul>
         </div>
