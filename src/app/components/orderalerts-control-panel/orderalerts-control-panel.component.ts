@@ -14,20 +14,18 @@ import { Card } from '../../interfaces/Card';
 import {AppSettings} from '../../AppSettings';
 import { Product } from '../../interfaces/Product';
 import { Category } from '../../interfaces/Category';
-import { Order } from '../../interfaces/Order';
-import { Review } from '../../interfaces/Review';
-import { UserSavedOrder } from '../../interfaces/UserSavedOrder';
+import { OrderAlert } from '../../interfaces/OrderAlert';
 
 @Component({
-  selector: 'app-usersavedorders-control-panel',
-  templateUrl: './usersavedorders-control-panel.component.html',
-  styleUrls: ['./usersavedorders-control-panel.component.css']
+  selector: 'app-orderalerts-control-panel',
+  templateUrl: './orderalerts-control-panel.component.html',
+  styleUrls: ['./orderalerts-control-panel.component.css']
 })
-export class UsersavedordersControlPanelComponent implements OnInit {
+export class OrderalertsControlPanelComponent implements OnInit {
 
-  itemsTable: Observable<UserSavedOrder[]>;
+  itemsTable: Observable<Category[]>;
 
-  items: UserSavedOrder[] = [];
+  items: OrderAlert[] = [];
 
   inputSearch = '';
   url: any;
@@ -36,15 +34,12 @@ export class UsersavedordersControlPanelComponent implements OnInit {
   tagsDisplay: any;
   visualizeImage = false;
 
-
-  descriptionDisplay: any;
-
   constructor(private _dataService: DataService,  private router: Router, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
    }
 
   ngOnInit() {
-    this.getAllUserSavedOrders();
+    this.getAllOrderAlerts();
   }
 
   /*
@@ -69,38 +64,34 @@ export class UsersavedordersControlPanelComponent implements OnInit {
   }
 
 
-  getAllUserSavedOrders() {
-    this._dataService.getAllUserSavedOrders().subscribe(data => {
+  getAllOrderAlerts() {
+    this._dataService.getAllOrderAlerts().subscribe(data => {
       this.items = [];
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i]);
       }
       if(this.items.length = 0) {
-        this.showToast(1, 'No hay pedidos de usuarios almacenados actualmente');
+        this.showToast(1, 'No hay alertas actualmente');
       }
     });
   }
 
-  doSpecificSearch() {
-    if (this.inputSearch === '') {
-      this.getAllUserSavedOrders();
-    } else {
-      this.getSpecificItems(this.inputSearch);
-    }
+  changeContactedStatus(i) {
+    this._dataService.updateOrderAlertContactedStatus(this.items[i].id).subscribe(data => {
+      this.showToast(1, 'Usuario contactado registrado');
+      this.getAllOrderAlerts();
+    });
   }
 
-  getSpecificItems(user) {
-    this.items = [];
-    const userLowerCase = user.toLowerCase();
-    this._dataService.getAllUserSavedOrders().subscribe(data => {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].userEmail  === userLowerCase) {
-          this.items.push(data[i]);
-        }
-      }
-      if (this.items.length === 0) {
-        this.showToast(2, 'No existen pedidos almacenados con el usuario introducido');
-      }
+
+  /*
+  EN:Function in charge of making the call for the deletion of a letter.
+  ES:Función encargada de realizar la llamada para la eliminación de una carta.
+  */
+  deleteOrderAlert(id) {
+    this._dataService.deleteOrderAlert(this.items[id].id).subscribe(data => {
+      this.showToast(1, 'Alerta eliminada');
+      this.getAllOrderAlerts();
     });
   }
 

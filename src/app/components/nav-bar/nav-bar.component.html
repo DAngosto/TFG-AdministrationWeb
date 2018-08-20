@@ -68,6 +68,14 @@
                     </ul>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
+                    <a><i class="fa fa-image"></i> Alertas de pedidos fallidos </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a routerLink="/orderAlertsCP" routerLinkActive="active">Panel de Control de Alertas</a>
+                        </li>
+                    </ul>
+                </li>
+                <li *ngIf="userRole == 'Admin'">
                     <a><i class="fa fa-image"></i> Opiniones de los Productos </a>
                     <ul class="nav nav-second-level">
                         <li>

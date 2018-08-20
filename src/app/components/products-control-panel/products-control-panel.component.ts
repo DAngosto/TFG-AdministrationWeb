@@ -95,7 +95,7 @@ export class ProductsControlPanelComponent implements OnInit {
           this.items.push(data[i]);
       }
       if (this.items.length === 0) {
-        this.showToast(2, 'No hay productos creados');
+        this.showToast(2, 'No hay productos almacenados actualmente');
       } else {
         this.productAllergensDisplay = this.setProductAllergens(0,'',false,false,false,false,false,false,false,false,false,false,false,false,false,false);
         this.gluten='../../assets/images/gluten.png';

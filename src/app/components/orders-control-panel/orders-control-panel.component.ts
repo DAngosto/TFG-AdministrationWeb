@@ -88,6 +88,9 @@ export class OrdersControlPanelComponent implements OnInit {
         */
         this.items.push(data[i]);
       }
+      if(this.items.length = 0) {
+        this.showToast(1, 'No hay pedidos almacenados actualmente');
+      }
     });
   }
 

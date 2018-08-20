@@ -78,6 +78,9 @@ export class UserrolesControlPanelComponent implements OnInit {
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i]);
       }
+      if(this.items.length = 0) {
+        this.showToast(1, 'No hay roles almacenados actualmente');
+      }
     });
   }
 

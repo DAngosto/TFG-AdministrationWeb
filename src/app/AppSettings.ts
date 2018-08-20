@@ -18,6 +18,8 @@ export class AppSettings {
     public static API_ENDPOINT_USERSBYROLEID = 'http://localhost:8084/appcafeteriaucam/data/users/role';
     public static API_ENDPOINT_USERSBYID = 'http://localhost:8084/appcafeteriaucam/data/users/id';
     public static API_ENDPOINT_WORKINGPERMITS = 'http://localhost:8084/appcafeteriaucam/data/workingpermits';
+    public static API_ENDPOINT_ORDERALERTS = 'http://localhost:8084/appcafeteriaucam/data/orderalerts';
+
 
 
 

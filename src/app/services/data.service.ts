@@ -22,6 +22,7 @@ import { UserSavedOrder } from '../interfaces/UserSavedOrder';
 import { UserRole } from '../interfaces/UserRole';
 import { User } from '../interfaces/User';
 import { WorkingPermit } from '../interfaces/WorkingPermit';
+import { OrderAlert } from '../interfaces/OrderAlert';
  
 @Injectable()
 export class DataService {
@@ -303,6 +304,15 @@ export class DataService {
         return this.http.get<Product>(AppSettings.API_ENDPOINT_ITEMS + '/' + name, { headers: headers });
     }
 
+    getAllOrderAlerts() {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        return this.http.get<OrderAlert[]>(AppSettings.API_ENDPOINT_ORDERALERTS, { headers: headers });
+    }
+
     /*
     EN:Function in charge of deleting a specific item from the API.
     ES:Función encargada de eliminar un item en concreto de la API.
@@ -457,26 +467,18 @@ export class DataService {
         return this.http.post(AppSettings.API_ENDPOINT_WORKINGPERMITS , body, { headers: headers });
     }
 
-    /*
-    EN:Function in charge of updating the information stored in a card in the API.
-    ES:Función encargada de actualizar la información almacenada de una carta en la API.
-    */
-    updateCard(card: Card){
+    createAlertOrder(userEmail, orderId) {
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
         let headers = new HttpHeaders()
             .set('Content-Type', 'application/json')
             .set('Authorization', authorization);
         let message = {
-                "name": card.name,
-                "history": card.history,
-                "tags": card.tags,
-                "fileURL": card.fileURL,
-                "itemType": "0",   //0 = carta , 1 = colección
-                "publish": card.publish
-        }
-        let body= JSON.stringify(message);
-        return this.http.put(AppSettings.API_ENDPOINT_ITEMS + '/' + card._id,body, { headers: headers });
+            "userEmail": userEmail,
+            "orderId": orderId
+        };
+        let body = JSON.stringify(message);
+        return this.http.post(AppSettings.API_ENDPOINT_ORDERALERTS , body, { headers: headers });
     }
 
     /*
@@ -644,7 +646,20 @@ export class DataService {
                 "status": order.status
         };
         let body= JSON.stringify(message);
-        return this.http.put(AppSettings.API_ENDPOINT_ORDERS + '/' + id, body, { headers: headers });
+        return this.http.put<Order>(AppSettings.API_ENDPOINT_ORDERS + '/' + id, body, { headers: headers });
+    }
+
+    updateOrderAlertContactedStatus(id) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+                "contacted": true
+        };
+        let body= JSON.stringify(message);
+        return this.http.put<OrderAlert>(AppSettings.API_ENDPOINT_ORDERALERTS + '/' + id, body, { headers: headers });
     }
 
     deleteProduct(product: Product){
@@ -710,6 +725,17 @@ export class DataService {
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
         return this.http.delete(AppSettings.API_ENDPOINT_WORKINGPERMITS + '/' + id, { headers: headers });
+    }
+
+    deleteOrderAlert(id) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.delete(AppSettings.API_ENDPOINT_ORDERALERTS + '/' + id, { headers: headers });
     }
 
     

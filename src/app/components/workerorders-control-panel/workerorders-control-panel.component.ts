@@ -173,8 +173,10 @@ export class WorkerordersControlPanelComponent implements OnInit {
     } else if (type === 1) {
       this.items[i].status = 3;
       this._dataService.updateOrder(this.items[i], this.items[i].id).subscribe(data => {
-        this.showToast(1, 'Estado de pedido actualizado a "Cliente nunca apareció"');
-        this.refreshOrders();
+        this._dataService.createAlertOrder(this.items[i].userEmail, this.items[i].id).subscribe(data => {
+          this.showToast(1, 'Estado de pedido actualizado a "Cliente nunca apareció"');
+          this.refreshOrders();
+        });
       });
     } else {
       this.items[i].status = 4;

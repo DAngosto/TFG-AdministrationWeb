@@ -51,6 +51,7 @@ import { UpdateWorkerComponent } from './components/update-worker/update-worker.
 import { WorkingpermitsControlPanelComponent } from './components/workingpermits-control-panel/workingpermits-control-panel.component';
 import { WorkerordersControlPanelComponent } from './components/workerorders-control-panel/workerorders-control-panel.component';
 import { WorkerorderdetailsControlPanelComponent } from './components/workerorderdetails-control-panel/workerorderdetails-control-panel.component';
+import { OrderalertsControlPanelComponent } from './components/orderalerts-control-panel/orderalerts-control-panel.component';
 
 
 
@@ -79,7 +80,7 @@ const appRoutes: Routes = [
   { path: 'workingPermitsCP',  canActivate: [AuthGuard], component: WorkingpermitsControlPanelComponent },
   { path: 'workerOrdersCP',  canActivate: [AuthGuard], component: WorkerordersControlPanelComponent },
   { path: 'workerOrderDetailsCP',  canActivate: [AuthGuard], component: WorkerorderdetailsControlPanelComponent },
-
+  { path: 'orderAlertsCP',  canActivate: [AuthGuard], component: OrderalertsControlPanelComponent },
   { path: 'collectionsCP', canActivate: [AuthGuard], component: CollectionsControlPanelComponent },
   { path: 'newCollection', canActivate: [AuthGuard], component: CreateCollectionComponent },
   { path: 'updateCollection', canActivate: [AuthGuard], component: UpdateCollectionComponent },
@@ -125,7 +126,8 @@ const appRoutes: Routes = [
     UpdateWorkerComponent,
     WorkingpermitsControlPanelComponent,
     WorkerordersControlPanelComponent,
-    WorkerorderdetailsControlPanelComponent
+    WorkerorderdetailsControlPanelComponent,
+    OrderalertsControlPanelComponent
   ],
   imports: [
     BrowserModule,
