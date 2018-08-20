@@ -28,6 +28,8 @@ export class WorkerordersControlPanelComponent implements OnInit {
   items: Order[] = [];
 
   cafeterias: string[] = [];
+  workingPermitsOfUser: number[] = [];
+
 
   inputSearch = '';
   url: any;
@@ -72,31 +74,7 @@ export class WorkerordersControlPanelComponent implements OnInit {
     }
   }
 
-
-  getAllOrders() {
-    this._dataService.getAllOrders().subscribe(data => {
-      this.items = [];
-      for (let i = 0; i < data.length; i++) {
-        /*
-        var date = new Date(data[i].activatedDate*1000);
-        var day = date.getUTCDay();
-        var month = date.getUTCMonth();
-        var year = date.getUTCFullYear();
-        var hours = date.getHours();
-        // Minutes part from the timestamp
-        var minutes = "0" + date.getMinutes();
-        // Seconds part from the timestamp
-        var seconds = "0" + date.getSeconds();
-
-        // Will display time in 10:30:23 format
-        var formattedTime =  day + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-        data[i].activatedDate = formattedTime;
-        */
-        this.items.push(data[i]);
-      }
-    });
-  }
-
+  /*
   getAllCafeterias() {
     this._dataService.getAllCafeterias().subscribe(data => {
       this.cafeterias = [];
@@ -108,18 +86,45 @@ export class WorkerordersControlPanelComponent implements OnInit {
       }
     });
   }
+  */
+
+  getAllCafeterias() {
+    this._dataService.getUserByEmail(localStorage.getItem('username')).subscribe(data => {
+      this._dataService.getAllWorkingPermitsOfUser(data.id).subscribe(data => {
+        this.workingPermitsOfUser = [];
+        for (let i = 0; i < data.length; i++) {
+          this.workingPermitsOfUser.push(data[i].cafeteriaId);
+        this._dataService.getAllCafeterias().subscribe(data => {
+          var flag = false;
+          this.cafeterias = [];
+          for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < this.workingPermitsOfUser.length; j++) {
+              if (data[i].id === this.workingPermitsOfUser[j]) {
+                flag = true;
+              }
+            }
+            if (flag === true) {
+              this.cafeterias.push(data[i].location);
+            } else {
+              flag = false;
+            }
+          }
+          if (this.cafeterias.length === 0) {
+            this.showToast(2, 'El equipo de trabajo actual no tiene ninguna cafeteria asignada. Por favor contacte con el administrador.');
+          }
+          if (this.cafeterias.length > 0) {
+            this.selectedCafeteria(this.cafeterias[0]);
+          }
+        });
+        }
+      });
+    });
+  }
 
   sawProducts(id) {
     this.productsDisplay = this.items[id].products;
   }
 
-  doSpecificSearch() {
-    if (this.inputSearch === '') {
-      this.getAllOrders();
-    } else {
-      this.getSpecificItems(this.inputSearch);
-    }
-  }
 
   getSpecificItems(cafeteria) {
     this.items = [];
@@ -163,21 +168,26 @@ export class WorkerordersControlPanelComponent implements OnInit {
       if (this.items[i].status === 0) { this.items[i].status = 1; } else { this.items[i].status = 0; }
       this._dataService.updateOrder(this.items[i], this.items[i].id).subscribe(data => {
         this.showToast(1, 'Estado de pedido actualizado');
-        this.getAllCafeterias();
+        this.refreshOrders();
       });
     } else if (type === 1) {
       this.items[i].status = 3;
       this._dataService.updateOrder(this.items[i], this.items[i].id).subscribe(data => {
         this.showToast(1, 'Estado de pedido actualizado a "Cliente nunca apareció"');
-        this.getAllCafeterias();
+        this.refreshOrders();
       });
     } else {
       this.items[i].status = 4;
       this._dataService.updateOrder(this.items[i], this.items[i].id).subscribe(data => {
         this.showToast(1, 'Estado de pedido actualizado a "Finalizado"');
-        this.getAllCafeterias();
+        this.refreshOrders();
       });
     }
+  }
+
+  refreshOrders() {
+    this.getAllCafeterias();
+    this.showToast(2, 'Tabla de pedidos actualizada');
   }
 
 }
