@@ -43,6 +43,9 @@ import { WorkingpermitsControlPanelComponent } from './components/workingpermits
 import { WorkerordersControlPanelComponent } from './components/workerorders-control-panel/workerorders-control-panel.component';
 import { WorkerorderdetailsControlPanelComponent } from './components/workerorderdetails-control-panel/workerorderdetails-control-panel.component';
 import { OrderalertsControlPanelComponent } from './components/orderalerts-control-panel/orderalerts-control-panel.component';
+import { BannersControlPanelComponent } from './components/banners-control-panel/banners-control-panel.component';
+import { CreateBannerComponent } from './components/create-banner/create-banner.component';
+import { UpdateBannerComponent } from './components/update-banner/update-banner.component';
 
 
 
@@ -72,6 +75,9 @@ const appRoutes: Routes = [
   { path: 'workerOrdersCP',  canActivate: [AuthGuard], component: WorkerordersControlPanelComponent },
   { path: 'workerOrderDetailsCP',  canActivate: [AuthGuard], component: WorkerorderdetailsControlPanelComponent },
   { path: 'orderAlertsCP',  canActivate: [AuthGuard], component: OrderalertsControlPanelComponent },
+  { path: 'bannersCP',  canActivate: [AuthGuard], component: BannersControlPanelComponent },
+  { path: 'newBanner',  canActivate: [AuthGuard], component: CreateBannerComponent },
+  { path: 'updateBanner',  canActivate: [AuthGuard], component: UpdateBannerComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];
@@ -103,7 +109,10 @@ const appRoutes: Routes = [
     WorkingpermitsControlPanelComponent,
     WorkerordersControlPanelComponent,
     WorkerorderdetailsControlPanelComponent,
-    OrderalertsControlPanelComponent
+    OrderalertsControlPanelComponent,
+    BannersControlPanelComponent,
+    CreateBannerComponent,
+    UpdateBannerComponent
   ],
   imports: [
     BrowserModule,

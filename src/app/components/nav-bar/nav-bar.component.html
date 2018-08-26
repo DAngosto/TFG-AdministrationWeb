@@ -44,6 +44,10 @@
                             <a routerLink="/reviewsCP" routerLinkActive="active"><i class="fa fa-comment"></i> Panel de Control de Opiniones</a>  
                 </li>
                 <li *ngIf="userRole == 'Admin'">
+                    <a routerLink="/bannersCP" routerLinkActive="active"><i class="fa fa-photo "></i> Panel de Control de Letreros</a>  
+                    <a routerLink="/newBanner" routerLinkActive="active">- Crear nuevo letrero</a>
+                </li>
+                <li *ngIf="userRole == 'Admin'">
                             <a routerLink="/userSavedOrdersCP" routerLinkActive="active"><i class="fa fa-book "></i> Panel de Control de Pedidos Almacenados por Usuarios</a>
                 </li>
                 

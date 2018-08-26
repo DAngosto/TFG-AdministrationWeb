@@ -13,17 +13,18 @@ import { DataService } from '../../services/data.service';
 import {AppSettings} from '../../AppSettings';
 import { Product } from '../../interfaces/Product';
 import { Category } from '../../interfaces/Category';
+import { Banner } from '../../interfaces/banner';
 
 @Component({
-  selector: 'app-category-control-panel',
-  templateUrl: './category-control-panel.component.html',
-  styleUrls: ['./category-control-panel.component.css']
+  selector: 'app-banners-control-panel',
+  templateUrl: './banners-control-panel.component.html',
+  styleUrls: ['./banners-control-panel.component.css']
 })
-export class CategoryControlPanelComponent implements OnInit {
+export class BannersControlPanelComponent implements OnInit {
 
   itemsTable: Observable<Category[]>;
 
-  items: Category[] = [];
+  items: Banner[] = [];
 
   inputSearch = '';
   url: any;
@@ -32,12 +33,15 @@ export class CategoryControlPanelComponent implements OnInit {
   tagsDisplay: any;
   visualizeImage = false;
 
+  bannerURL: string="";
+
+
   constructor(private _dataService: DataService,  private router: Router, public toastr: ToastsManager, vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
    }
 
   ngOnInit() {
-    this.getAllCategories();
+    this.getAllBanners();
   }
 
   /*
@@ -62,16 +66,37 @@ export class CategoryControlPanelComponent implements OnInit {
   }
 
 
-  getAllCategories() {
-    this._dataService.getAllCategories().subscribe(data => {
+  getAllBanners() {
+    this._dataService.getAllBanners().subscribe(data => {
       this.items = [];
       for (let i = 0; i < data.length; i++) {
         this.items.push(data[i]);
       }
       if(this.items.length === 0) {
-        this.showToast(1, 'No hay categorias almacenados actualmente');
+        this.showToast(1, 'No hay letreros almacenados actualmente');
       }
     });
+  }
+
+  sawBanner(i) {
+    this.bannerURL = AppSettings.API_ENDPOINT +  this.items[i].url + '.';
+  }
+
+
+
+
+  swapStatus(i) {
+    if (this.items[i].status === 0) {
+      this.items[i].status = 1;
+      this._dataService.updateBanner(this.items[i]).subscribe(data => {
+        this.showToast(1, 'Estado actualizado');
+      });
+    } else {
+      this.items[i].status = 0;
+      this._dataService.updateBanner(this.items[i]).subscribe(data => {
+        this.showToast(1, 'Estado actualizado');
+      });
+    }
   }
 
 
@@ -79,19 +104,19 @@ export class CategoryControlPanelComponent implements OnInit {
   EN:Function in charge of passing the data of the card to be updated to the service and performing the redirection.
   ES:Función encargada de pasar los datos de la carta a actualizar al servicio y realizar la redirección.
   */
-  updateCategory(id) {
-    this._dataService.changeCategory(this.items[id]);
-    this.router.navigate(['/updateCategory']);
+  updateBanner(id) {
+    this._dataService.changeBanner(this.items[id]);
+    this.router.navigate(['/updateBanner']);
   }
 
   /*
   EN:Function in charge of making the call for the deletion of a letter.
   ES:Función encargada de realizar la llamada para la eliminación de una carta.
   */
-  deleteCategory(id) {
-    this._dataService.deleteCategory(this.items[id]).subscribe(data => {
-      this.showToast(1, 'Categoría eliminada');
-      this.getAllCategories();
+  deleteBanner(i) {
+    this._dataService.deleteBanner(this.items[i].id).subscribe(data => {
+      this.showToast(1, 'Letrero eliminada');
+      this.getAllBanners();
     });
   }
 

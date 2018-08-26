@@ -19,6 +19,7 @@ import { UserRole } from '../interfaces/UserRole';
 import { User } from '../interfaces/User';
 import { WorkingPermit } from '../interfaces/WorkingPermit';
 import { OrderAlert } from '../interfaces/OrderAlert';
+import { Banner } from '../interfaces/banner';
  
 @Injectable()
 export class DataService {
@@ -46,6 +47,10 @@ export class DataService {
     order: Order;
     private messageSource6 = new BehaviorSubject<Order>(this.order);
     currentOrderWatching = this.messageSource6.asObservable();
+
+    banner: Banner;
+    private messageSource7 = new BehaviorSubject<Banner>(this.banner);
+    currentBannerWatching = this.messageSource7.asObservable();
 
     
 
@@ -269,6 +274,15 @@ export class DataService {
         return this.http.get<OrderAlert[]>(AppSettings.API_ENDPOINT_ORDERALERTS, { headers: headers });
     }
 
+    getAllBanners() {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        return this.http.get<Banner[]>(AppSettings.API_ENDPOINT_BANNERS, { headers: headers });
+    }
+
 
     createProduct(name, category, price, imageURL, stock) {
         let userToken= localStorage.getItem('tokenUser');
@@ -401,6 +415,21 @@ export class DataService {
         return this.http.post(AppSettings.API_ENDPOINT_ORDERALERTS , body, { headers: headers });
     }
 
+    createBanner(name, url, status) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+            "name": name,
+            "url": url,
+            'status': status
+        };
+        let body = JSON.stringify(message);
+        return this.http.post(AppSettings.API_ENDPOINT_BANNERS , body, { headers: headers });
+    }
+
     /*
     EN:Function in charge of saving a card so its information can be passed between the components.
     ES:Función encargada de guardar una carta para que entre los componentes puedan pasarse su información.
@@ -427,6 +456,10 @@ export class DataService {
 
     changeOrder(order: Order) {
         this.messageSource6.next(order);
+    }
+
+    changeBanner(banner: Banner) {
+        this.messageSource7.next(banner);
     }
 
 
@@ -560,6 +593,21 @@ export class DataService {
         return this.http.put<OrderAlert>(AppSettings.API_ENDPOINT_ORDERALERTS + '/' + id, body, { headers: headers });
     }
 
+    updateBanner(banner: Banner) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Authorization', authorization);
+        let message = {
+                "name": banner.name,
+                'url': banner.url,
+                'status': banner.status
+        };
+        let body= JSON.stringify(message);
+        return this.http.put<Banner>(AppSettings.API_ENDPOINT_BANNERS + '/' + banner.id, body, { headers: headers });
+    }
+
     deleteProduct(product: Product){
         let userToken= localStorage.getItem('tokenUser');
         let authorization = "Bearer " + userToken;
@@ -633,6 +681,17 @@ export class DataService {
             .set('Access-Control-Allow-Credentials', 'true')
             .set('Authorization', authorization);
         return this.http.delete(AppSettings.API_ENDPOINT_ORDERALERTS + '/' + id, { headers: headers });
+    }
+
+    deleteBanner(id) {
+        let userToken= localStorage.getItem('tokenUser');
+        let authorization = "Bearer " + userToken;
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
+            .set('Authorization', authorization);
+        return this.http.delete(AppSettings.API_ENDPOINT_BANNERS + '/' + id, { headers: headers });
     }
 
 }// END OF DataService

@@ -1,0 +1,22 @@
+<app-nav-bar></app-nav-bar>
+<div id="page-wrapper">
+    <div class="contact-clean">
+        <form method="post">
+            <h2 class="text-center">Crear Letrero</h2>
+            <div class="form-group">
+                <input class="form-control" type="text" name="name" placeholder="Nombre" maxlength="40" [(ngModel)]="inputName">
+            </div>
+            <label>Imágen del letrero: </label>
+            <input type="file" (change)="onFileSelected($event)">
+            <div id="preview" class="preview" *ngIf="sawImage">
+                <br>
+                <img [src] = "url">
+            </div>
+            <br>
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" (click)="uploadBanner()" value="Update File"> Crear </button>
+            </div>   
+            <br> 
+        </form>
+    </div>
+</div>

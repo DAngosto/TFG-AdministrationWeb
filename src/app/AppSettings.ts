@@ -23,6 +23,8 @@ export class AppSettings {
     public static API_ENDPOINT_USERSBYID = 'http://79.147.125.159:8084/appcafeteriaucam/data/users/id';
     public static API_ENDPOINT_WORKINGPERMITS = 'http://79.147.125.159:8084/appcafeteriaucam/data/workingpermits';
     public static API_ENDPOINT_ORDERALERTS = 'http://79.147.125.159:8084/appcafeteriaucam/data/orderalerts';
+    public static API_ENDPOINT_BANNERS = 'http://79.147.125.159:8084/appcafeteriaucam/data/banners';
+
 
 
 
