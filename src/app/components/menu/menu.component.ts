@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 //SERVICES
 import { DataService } from '../../services/data.service';
+import { Product } from '../../interfaces/Product';
 
 declare var Morris:any;
 declare var $:any;
@@ -16,84 +17,87 @@ declare var $:any;
 
 export class MenuComponent implements OnInit {
 
-  tokenUser;
-  actualCards:number;
-  actualCollections:number;
-  actualCollectionsPublished:number;
-  actualNumberOfGamesPlayed:number;
-  actualArcadeGamesPlayed:number;
-  actualSurvivalGamesPlayed:number;
-  actualGamesWithJokers:number;
-  actualGamesWithoutJokers:number;
-  gamesWithMultiJoker:number;
-  gamesWithVolteoJoker:number;
-  gamesWithBothJokers: number;
+  actualUsersNumber: number;
+  actualProductsNumber: number;
+  actualProductsWithStockNumber: number;
+  actualOrdersNumber: number;
+  actualCafeteriasNumber: number;
+  actualWorkersNumber: number;
+  actualAppusersNumber: number;
+  actualAdminsNumber: number;
+  actualAlertsNumber: number;
+  actualProductsWithNoStockNumber: number;
+  actualOrdersStatus0Number: number;
+  actualOrdersStatus1Number: number;
+  actualOrdersStatus2Number: number;
+  actualOrdersStatus3Number: number;
+  actualOrdersStatus4Number: number;
+
 
   constructor(private _dataService: DataService, private router:Router) { }
 
   ngOnInit() {
-    //this.getAllItems();
+    this.getAllItems();
   }
 
   /*
   EN:Function in charge of getting all the existing cards.
   ES:Función encargada de obtener todos los items existentes.
   */
- /*
-  getAllItems(){
-    this.actualCards = 0;
-    this.actualCollections = 0;
-    this.actualCollectionsPublished = 0;
-    this.actualNumberOfGamesPlayed = 0;
-    this.actualArcadeGamesPlayed = 0;
-    this.actualSurvivalGamesPlayed = 0;
-    this.actualGamesWithJokers = 0;
-    this.actualGamesWithoutJokers = 0;
-    this.gamesWithMultiJoker = 0;
-    this.gamesWithVolteoJoker = 0;
-    this.gamesWithBothJokers = 0;
-    this._dataService.getAllItemsGamesPlayed().subscribe(data=>{
-      for(let i=0; i<data.length; i++){
-        if (data[i].itemType=="0"){
-          this.actualCards++;
-        }else if (data[i].itemType=="1"){
-          this.actualCollections++;
-          if(data[i].publish==true){
-            this.actualCollectionsPublished++;
+ 
+  getAllItems() {
+    this.cleanData();
+    this._dataService.getAllProducts().subscribe(products => {
+      this.actualProductsNumber = products.length;
+      for (let i = 0; i < products.length; i++) {
+          if (products[i].stock !== 0) {
+            this.actualProductsWithStockNumber += 1;
+          } else {
+            this.actualProductsWithNoStockNumber += 1;
           }
-        }else if (data[i].itemType=="2"){
-          this.actualNumberOfGamesPlayed++;
-          if(data[i].gamemode==0){
-            this.actualArcadeGamesPlayed++;
-            if((data[i].jokermultiwasted)||(data[i].jokervolteowasted)){
-              this.actualGamesWithJokers++;
-              if((data[i].jokermultiwasted)&&(!data[i].jokervolteowasted)){
-                this.gamesWithMultiJoker++;
-              }else if((!data[i].jokermultiwasted)&&(data[i].jokervolteowasted)){
-                this.gamesWithVolteoJoker++;
-              }else{
-                this.gamesWithBothJokers++;
-              }
-            }else{
-              this.actualGamesWithoutJokers++;
-            }
-          }else if(data[i].gamemode==1){
-            this.actualSurvivalGamesPlayed++;                
-          }
-        }   
       }
-      this.loadStatistics();
+      this._dataService.getAllUsers().subscribe(users => {
+          this.actualUsersNumber = users.length;
+          for (let i = 0; i < users.length; i++) {
+            if (users[i].userRoleId == '2') {
+              this.actualWorkersNumber += 1;
+            } else if (users[i].userRoleId == '1') {
+                this.actualAppusersNumber += 1;
+            } else if (users[i].userRoleId == '3') {
+              this.actualAdminsNumber += 1;
+            }
+          }
+          this._dataService.getAllOrders().subscribe(orders => {
+            this.actualOrdersNumber = orders.length;
+            for (let i = 0; i < orders.length; i++) {
+              if (orders[i].status === 0) {
+                this.actualOrdersStatus0Number += 1;
+              } else if (orders[i].status === 1) {
+                  this.actualOrdersStatus1Number += 1;
+              } else if (orders[i].status === 2) {
+                this.actualOrdersStatus2Number += 1;
+              } else if (orders[i].status === 3) {
+                this.actualOrdersStatus3Number += 1;
+              } else if (orders[i].status === 4) {
+                this.actualOrdersStatus4Number += 1;
+              }
+            }
+            this._dataService.getAllOrderAlerts().subscribe(alerts => {
+              this.actualAlertsNumber = alerts.length;
+              this.loadStatistics();
+            });
+          });
+      });
     });
   }
-*/
 
   /*
   EN:Function in charge of deleting the data shown in the charts.
   ES:Función encargada de eliminar los datos mostrados en las gráficas.
   */
-  cleanCharts(){
-    $('#morris-donut-chart-gamemodevs').empty();
-    $('#morris-bar-chart-jokersvs').empty();
+  cleanCharts() {
+    $('#morris-donut-chart-usersregistered').empty();
+    $('#morris-bar-chart-productsvs').empty();
     $('#morris-donut-chart-mostusedjokers').empty();
   }
 
@@ -101,34 +105,57 @@ export class MenuComponent implements OnInit {
   EN:Function in charge of entering the corresponding data in the charts.
   ES:Función encargada de introducir los datos corrspondientes en las gráficas.
   */
-  loadStatistics(){
+  loadStatistics() {
     this.cleanCharts();
     Morris.Donut({
-      element: 'morris-donut-chart-gamemodevs',
+      element: 'morris-donut-chart-usersregistered',
       data: [
-        {label: "Juegos Arcade", value: this.actualArcadeGamesPlayed},
-        {label: "Juegos Survival", value:  this.actualSurvivalGamesPlayed}
+        {label: 'Usuarios de la Aplicación', value: this.actualAppusersNumber},
+        {label: 'Trabajadores', value: this.actualWorkersNumber},
+        {label: 'Administradores', value: this.actualAdminsNumber}
       ]
     });
 
     Morris.Bar({
-      element: 'morris-bar-chart-jokersvs',
+      element: 'morris-bar-chart-productsvs',
       data: [
-        { y: 'Partidas Modo Arcade', a: this.actualGamesWithJokers, b: this.actualGamesWithoutJokers },
+        { y: 'Total de productos: ' + this.actualProductsNumber,
+        a: this.actualProductsWithStockNumber, b: this.actualProductsWithNoStockNumber },
       ],
       xkey: 'y',
       ykeys: ['a', 'b'],
-      labels: ['Con comodines', 'Sin comodines']
+      labels: ['Disponibles', 'No Disponibles']
     });
 
     Morris.Donut({
-      element: 'morris-donut-chart-mostusedjokers',
+      element: 'morris-donut-chart-ordersdistribution',
       data: [
-        {label: "Juegos con comodín Multi", value: this.gamesWithMultiJoker},
-        {label: "Juegos con comodín Volteo", value:  this.gamesWithVolteoJoker},
-        {label: "Juegos con ambos comodines", value:  this.gamesWithBothJokers}
+        {label: 'Pendiente de Aceptación', value: this.actualOrdersStatus0Number},
+        {label: 'En proceso', value:  this.actualOrdersStatus1Number},
+        {label: 'Pediente de Pagar y Recoger por Cliente', value:  this.actualOrdersStatus2Number},
+        {label: 'Cliente nunca apareció', value:  this.actualOrdersStatus3Number},
+        {label: 'Finalizado', value:  this.actualOrdersStatus4Number}
       ]
     });
+  }
+
+
+  cleanData() {
+    this.actualProductsNumber = 0;
+    this.actualProductsWithStockNumber = 0;
+    this.actualUsersNumber = 0;
+    this.actualOrdersNumber = 0;
+    this.actualCafeteriasNumber = 0;
+    this.actualWorkersNumber = 0;
+    this.actualAppusersNumber = 0;
+    this.actualAdminsNumber = 0;
+    this.actualAlertsNumber = 0;
+    this.actualProductsWithNoStockNumber = 0;
+    this.actualOrdersStatus0Number = 0;
+    this.actualOrdersStatus1Number = 0;
+    this.actualOrdersStatus2Number = 0;
+    this.actualOrdersStatus3Number = 0;
+    this.actualOrdersStatus4Number = 0;
   }
 
 }/// END OF COMPONENT MenuComponent ///

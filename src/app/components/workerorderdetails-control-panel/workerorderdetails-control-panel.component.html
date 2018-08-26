@@ -13,14 +13,16 @@
                             <tr>
                                 <th class="text-center">Imágen</th>
                                 <th>Nombre</th>
+                                <th>Cantidad</th>
                                 <th>Categoria</th>
-                                <th>Precio</th>
+                                <th>Precio/unidad</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of items ; let i = index">
                                 <td class="text-center"><img src="{{ item.imageURL }}"></td>
                                 <td >{{ item.name }}</td>
+                                <td >{{ item.amount }}</td>
                                 <td>{{ item.category }}</td>
                                 <td>{{ item.price }} euros</td>
                             </tr>

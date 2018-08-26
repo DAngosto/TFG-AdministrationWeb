@@ -90,6 +90,9 @@ export class WorkingpermitsControlPanelComponent implements OnInit {
             this.items[i].userEmail = this.users[data[i].userId];
             this.items[i].cafeteriaLocation = this.cafeterias[data[i].cafeteriaId];
           }
+          if(this.items.length === 0) {
+            this.showToast(1, 'No hay permisos de trabajo almacenados actualmente');
+          }
         });
       });
     });

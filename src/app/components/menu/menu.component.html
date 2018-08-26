@@ -14,12 +14,12 @@
                             <i class="fa fa-image fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ actualCards }}</div>
-                            <div>Cartas Creadas</div>
+                            <div class="huge">{{ actualUsersNumber }}</div>
+                            <div>Usuarios Registrados en el Sistema</div>
                         </div>
                     </div>
                 </div>
-                <a routerLink="/cardsCP">
+                <a routerLink="/usersCP">
                     <div class="panel-footer">
                         <span class="pull-left" >Ver en Detalle</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -36,12 +36,12 @@
                             <i class="fa fa-image fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ actualCollections }}</div>
-                            <div>Colecciones Creadas</div>
+                            <div class="huge">{{ actualProductsNumber }}</div>
+                            <div>Productos Creados</div>
                         </div>
                     </div>
                 </div>
-                <a routerLink="/collectionsCP">
+                <a routerLink="/productsCP">
                     <div class="panel-footer">
                         <span class="pull-left" >Ver en Detalle</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -58,12 +58,12 @@
                             <i class="fa fa-cog fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ actualCollectionsPublished }}</div>
-                            <div>Colecciones Publicadas</div>
+                            <div class="huge">{{ actualOrdersNumber }}</div>
+                            <div>Pedidos realizados</div>
                         </div>
                     </div>
                 </div>
-                <a routerLink="/GameConfigCP">
+                <a routerLink="/productsCP">
                     <div class="panel-footer">
                         <span class="pull-left">Ver en Detalle</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -80,12 +80,12 @@
                             <i class="fa fa-gamepad fa-5x"></i>
                         </div>
                         <div class="col-xs-9 text-right">
-                            <div class="huge">{{ actualNumberOfGamesPlayed }}</div>
-                            <div>Partidas jugadas</div>
+                            <div class="huge">{{ actualAlertsNumber }}</div>
+                            <div>Alertas</div>
                         </div>
                     </div>
                 </div>
-                <a routerLink="/AllStatistics">
+                <a routerLink="/ordersCP">
                     <div class="panel-footer">
                         <span class="pull-left" >Ver en Detalle</span>
                         <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -97,20 +97,20 @@
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Juegos Arcade vs Juegos Survival
+                    Distribución de Usuarios
                 </div>
                 <div class="panel-body">
-                    <div id="morris-donut-chart-gamemodevs"></div>
+                    <div id="morris-donut-chart-usersregistered"></div>
                 </div>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    Juegos Arcade donde se hayan usado comodínes vs donde no
+                    Productos Disponbiles vs No Disponibles
                 </div>
                 <div class="panel-body">
-                    <div id="morris-bar-chart-jokersvs"></div>
+                    <div id="morris-bar-chart-productsvs"></div>
                 </div>
             </div>
         </div>
@@ -120,10 +120,10 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Uso de cada tipo de comodín
+                        Distribución de los Estados de los Pedidos
                     </div>
                     <div class="panel-body">
-                        <div id="morris-donut-chart-mostusedjokers"></div>
+                        <div id="morris-donut-chart-ordersdistribution"></div>
                     </div>
                 </div>
             </div>

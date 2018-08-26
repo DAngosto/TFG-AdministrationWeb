@@ -91,27 +91,28 @@ export class ProductsControlPanelComponent implements OnInit {
     this.clearData();
     this._dataService.getAllProducts().subscribe(data => {
       for (let i = 0; i < data.length; i++) {
-          data[i].imageURL = AppSettings.API_ENDPOINT + data[i].imageURL + '.';
+              var aux = data[i].imageURL.split('/');
+              data[i].imageURL = AppSettings.API_ENDPOINT + aux[0] + '/' + aux[1] + '/web_' +  aux[2] + '.';
           this.items.push(data[i]);
       }
       if (this.items.length === 0) {
         this.showToast(2, 'No hay productos almacenados actualmente');
       } else {
         this.productAllergensDisplay = this.setProductAllergens(0,'',false,false,false,false,false,false,false,false,false,false,false,false,false,false);
-        this.gluten='../../assets/images/gluten.png';
-        this.crustaceos='../../assets/images/crustaceos.png';
-        this.huevos='../../assets/images/huevos.png';
-        this.pescado='../../assets/images/pescado.png';
-        this.soja='../../assets/images/soja.png';
-        this.lacteos='../../assets/images/lacteos.png';
-        this.frutosSecos='../../assets/images/frutosSecos.png';
-        this.apio='../../assets/images/apio.png';
-        this.mostaza='../../assets/images/mostaza.png';
-        this.sesamo='../../assets/images/sesamo.png';
-        this.sulfitos='../../assets/images/sulfitos.png';
-        this.altramuz='../../assets/images/altramuz.png';
-        this.moluscos='../../assets/images/moluscos.png';
-        this.cacahuetes='../../assets/images/cacahuetes.png';
+        this.gluten= AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/gluten.png.';
+        this.crustaceos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/crustaceos.png.';
+        this.huevos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/huevos.png.';
+        this.pescado=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/pescado.png.';
+        this.soja=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/soja.png.';
+        this.lacteos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/lacteos.png.';
+        this.frutosSecos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/frutosSecos.png.';
+        this.apio=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/apio.png.';
+        this.mostaza=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/mostaza.png.';
+        this.sesamo=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/sesamo.png.';
+        this.sulfitos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/sulfitos.png.';
+        this.altramuz=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/altramuz.png.';
+        this.moluscos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/moluscos.png.';
+        this.cacahuetes=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/cacahuetes.png.';
       }
     });
   }
@@ -128,13 +129,14 @@ export class ProductsControlPanelComponent implements OnInit {
     this._dataService.getAllProducts().subscribe(data => {
       for (let i = 0; i < data.length; i++) {
             if (data[i].category.toLowerCase() === categoryLowerCase) {
-              data[i].imageURL = AppSettings.API_ENDPOINT + data[i].imageURL + '.';
+              var aux = data[i].imageURL.split('/');
+              data[i].imageURL = AppSettings.API_ENDPOINT + aux[0] + '/' + aux[1] + '/web_' +  aux[2] + '.';
               this.items.push(data[i]);
               break;
             }
       }
       if (this.items.length === 0) {
-        this.showToast(2, 'No hay cartas creadas con la etiqueta especificada');
+        this.showToast(2, 'No hay productos almacenados actualmente');
       }
     });
   }

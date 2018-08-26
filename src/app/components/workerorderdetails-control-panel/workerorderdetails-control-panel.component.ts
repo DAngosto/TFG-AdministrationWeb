@@ -15,6 +15,7 @@ import {AppSettings} from '../../AppSettings';
 import { Product } from '../../interfaces/Product';
 import { ProductAllergens } from '../../interfaces/ProductAllergens';
 import { Order } from '../../interfaces/Order';
+import { ProductOrderDisplay } from '../../interfaces/ProductOrderDisplay';
 
 @Component({
   selector: 'app-workerorderdetails-control-panel',
@@ -25,7 +26,7 @@ export class WorkerorderdetailsControlPanelComponent implements OnInit {
 
   itemsTable: Observable<Product[]>;
 
-  items: Product[] = [];
+  items: ProductOrderDisplay[] = [];
 
   inputSearch = '';
   url: any;
@@ -83,15 +84,19 @@ export class WorkerorderdetailsControlPanelComponent implements OnInit {
     } else {
       const productsFormatted = this.orderWatching.products.split(',');
       if (productsFormatted.length === 0) {
-        this._dataService.getProductByName(this.orderWatching.products).subscribe(data => {
-          data.imageURL = AppSettings.API_ENDPOINT + data.imageURL + '.';
-          this.items.push(data);
+        const productFormatted = this.orderWatching.products.split('-');
+        this._dataService.getProductByName(productFormatted[0]).subscribe(data => {
+          var urlformatted = data.imageURL.split('/');
+          data.imageURL = AppSettings.API_ENDPOINT + '/' + urlformatted[0] + '/' + urlformatted[1] + '/' + 'web_' + urlformatted[2] + '.';
+          this.items.push(this.setProduct(data.name, data.category, data.imageURL, productFormatted[1], data.price));
         });
       } else {
         for (let i = 0; i < productsFormatted.length; i++) {
-          this._dataService.getProductByName(productsFormatted[i]).subscribe(data => {
-            data.imageURL = AppSettings.API_ENDPOINT + data.imageURL + '.';
-            this.items.push(data);
+          var productFormatted = productsFormatted[i].split('-');
+          this._dataService.getProductByName(productFormatted[0]).subscribe(data => {
+            var urlformatted = data.imageURL.split('/');
+            data.imageURL = AppSettings.API_ENDPOINT + '/' + urlformatted[0] + '/' + urlformatted[1] + '/' + 'web_' + urlformatted[2] + '.';
+            this.items.push(this.setProduct(data.name, data.category, data.imageURL, productFormatted[1], data.price));
           });
         }
       }
@@ -103,11 +108,13 @@ export class WorkerorderdetailsControlPanelComponent implements OnInit {
   swapStatus() {
     this.orderWatching.status = 2;
     this._dataService.updateOrder(this.orderWatching, this.orderWatching.id).subscribe(data => {
+      
       this.showToast(1, 'Pedido Completado a la espera de ser recogido y pagado');
       this.router.navigate(['/workerOrdersCP']);
     });
   }
 
+  /*
   swapStockStatus(id) {
     if (this.items[id].stock === 0) {
       this.items[id].stock = 1;
@@ -121,6 +128,17 @@ export class WorkerorderdetailsControlPanelComponent implements OnInit {
       });
     }
   }
+  */
+
+  setProduct(name,category,imageURL,amount,price) : ProductOrderDisplay{
+    var aux: ProductOrderDisplay = {name,category,imageURL,amount,price};
+    aux.name = name;
+    aux.category = category;
+    aux.imageURL = imageURL;
+    aux.amount = amount;
+    aux.price = price;
+    return aux;
+}
 
 
 

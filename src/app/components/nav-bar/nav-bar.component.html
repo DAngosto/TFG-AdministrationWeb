@@ -13,94 +13,38 @@
                     <a routerLink="/dashboard" routerLinkActive="active"><i class="fa fa-dashboard fa-fw"></i> Panel General</a>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Usuarios </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/usersCP" routerLinkActive="active">Panel de Control de Usuarios</a>
-                        </li>
-                        <li>
                             <a routerLink="/newWorkerTeam" routerLinkActive="active">Crear una nuevo equipo de trabajo</a>
-                        </li>
-                        <li>
                             <a routerLink="/workingPermitsCP" routerLinkActive="active">Panel de Control de Permisos de Trabajo</a>
-                        </li>
-                    </ul>
+                    
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Productos </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/productsCP" routerLinkActive="active">Panel de Control de Productos</a>
-                        </li>
-                        <li>
                             <a routerLink="/newProduct" routerLinkActive="active">Crear una nuevo producto</a>
-                        </li>
-                    </ul>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Categorías </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/categoriesCP" routerLinkActive="active">Panel de Control de Categorías</a>
-                        </li>
-                        <li>
                             <a routerLink="/newCategory" routerLinkActive="active">Crear una nueva categoría</a>
-                        </li>
-                    </ul>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Cafeterías </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/cafeteriasCP" routerLinkActive="active">Panel de Control de Cafeterías</a>
-                        </li>
-                        <li>
                             <a routerLink="/newCafeteria" routerLinkActive="active">Crear una nueva cafetería</a>
-                        </li>
-                    </ul>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Pedidos </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/ordersCP" routerLinkActive="active">Panel de Control de Pedidos</a>
-                        </li>
-                    </ul>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Alertas de pedidos fallidos </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/orderAlertsCP" routerLinkActive="active">Panel de Control de Alertas</a>
-                        </li>
-                    </ul>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Opiniones de los Productos </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/reviewsCP" routerLinkActive="active">Panel de Control de Opiniones</a>
-                        </li>
-                    </ul>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Pedidos Almacenados por Usuarios </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/userSavedOrdersCP" routerLinkActive="active">Panel de Control de Pedidos Almacenados por Usuarios</a>
-                        </li>
-                    </ul>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                    <a><i class="fa fa-image"></i> Roles de Usuario </a>
-                    <ul class="nav nav-second-level">
-                        <li>
                             <a routerLink="/userRolesCP" routerLinkActive="active">Panel de Control de Roles de Usuario</a>
-                        </li>
-                        <li>
                             <a routerLink="/newUserRole" routerLinkActive="active">Crear Nuevo Rol de Usuario</a>
-                        </li>
-                    </ul>
                 </li>
                 <li *ngIf="userRole == 'WorkerTeam'">
                         <a><i class="fa fa-image"></i> Panel de Pedidos </a>

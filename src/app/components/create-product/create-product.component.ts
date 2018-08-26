@@ -178,6 +178,8 @@ export class CreateProductComponent implements OnInit {
   */
   uploadProduct() {
     if (this.selectedFile) {
+      var aux = this.selectedFile.name;
+      var aux2 = "web_" + aux;
       if ((this.inputName !== '') && (this.selectedCategory !== null) && (this.inputPrice !== NaN)) {
         var flag = false;
         for (let i = 0; i < this.products.length; i++) {
@@ -190,8 +192,10 @@ export class CreateProductComponent implements OnInit {
           this.showToast(0, 'El nombre del producto ya está siendo ocupado, por favor introduzca otro diferente');
         } else {
           const fd = new FormData();
-          this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 50, 50).subscribe(result => {
-            fd.append('File', result, this.selectedFile.name);
+          console.log(aux);
+          this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 460, 460).subscribe(result => {
+            
+            fd.append('File', result, aux);
             this._dataService.uploadProductFile(fd).subscribe(data => {
             const fileURL = data['file'];
             this._dataService.createProduct(this.inputName, this.selectedCategory, this.inputPrice,
@@ -199,13 +203,22 @@ export class CreateProductComponent implements OnInit {
               this.showToast(1, 'Producto creado');
               this.productAllergens.productName = this.inputName;
               this._dataService.createProductAllergens(this.productAllergens).subscribe(data => {
+
+                const fd2 = new FormData();
+                this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 50, 50).subscribe(result => {
+                  fd2.append('File', result, aux2);
+                  this._dataService.uploadProductFile(fd2).subscribe(data => {
+                  });
+                });
               });
             });
           });
         });
+
+
         }
       } else {
-        this.showToast(0, 'Los campos nombre o historia estaban incompletos, por favor introduce la información correspondiente');
+        this.showToast(0, 'Los campos nombre o precio estaban incompletos, por favor introduce la información correspondiente');
       }
     } else {
       this.showToast(0, '¡Selecciona una imagen antes de intentar crear un nuevo producto!');

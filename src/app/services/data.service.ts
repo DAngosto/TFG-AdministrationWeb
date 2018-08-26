@@ -668,7 +668,6 @@ export class DataService {
         let headers = new HttpHeaders()
             .set('Content-Type', 'application/json')
             .set('Authorization', authorization);
-            console.log(product);
         return this.http.delete(AppSettings.API_ENDPOINT_ITEMS + '/' + product.name, { headers: headers });
     }
 

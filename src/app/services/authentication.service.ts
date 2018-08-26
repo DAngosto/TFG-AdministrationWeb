@@ -17,7 +17,10 @@ export class AuthenticationService {
     ES:Función encargada de comprobar las credenciales del usuario contra la API.
     */
     validate(user, password) {
-        let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        let headers = new HttpHeaders()
+            .set('Content-Type', 'application/json')
+            .set('Access-Control-Allow-Origin', 'true')
+            .set('Access-Control-Allow-Credentials', 'true')
         let message = {
           "email": user,
           "hashedPassword": password
