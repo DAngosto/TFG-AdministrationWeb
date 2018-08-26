@@ -98,20 +98,20 @@ export class ProductsControlPanelComponent implements OnInit {
         this.showToast(2, 'No hay productos almacenados actualmente');
       } else {
         this.productAllergensDisplay = this.setProductAllergens(0,'',false,false,false,false,false,false,false,false,false,false,false,false,false,false);
-        this.gluten= AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/gluten.png.';
-        this.crustaceos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/crustaceos.png.';
-        this.huevos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/huevos.png.';
-        this.pescado=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/pescado.png.';
-        this.soja=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/soja.png.';
-        this.lacteos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/lacteos.png.';
-        this.frutosSecos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/frutosSecos.png.';
-        this.apio=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/apio.png.';
-        this.mostaza=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/mostaza.png.';
-        this.sesamo=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/sesamo.png.';
-        this.sulfitos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/sulfitos.png.';
-        this.altramuz=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/altramuz.png.';
-        this.moluscos=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/moluscos.png.';
-        this.cacahuetes=AppSettings.API_ENDPOINT_FILES_PRODUCTS + '/cacahuetes.png.';
+        this.gluten= AppSettings.API_ENDPOINT_FILES_STATICS + '/gluten.png.';
+        this.crustaceos=AppSettings.API_ENDPOINT_FILES_STATICS + '/crustaceos.png.';
+        this.huevos=AppSettings.API_ENDPOINT_FILES_STATICS + '/huevos.png.';
+        this.pescado=AppSettings.API_ENDPOINT_FILES_STATICS + '/pescado.png.';
+        this.soja=AppSettings.API_ENDPOINT_FILES_STATICS + '/soja.png.';
+        this.lacteos=AppSettings.API_ENDPOINT_FILES_STATICS + '/lacteos.png.';
+        this.frutosSecos=AppSettings.API_ENDPOINT_FILES_STATICS + '/frutosSecos.png.';
+        this.apio=AppSettings.API_ENDPOINT_FILES_STATICS + '/apio.png.';
+        this.mostaza=AppSettings.API_ENDPOINT_FILES_STATICS + '/mostaza.png.';
+        this.sesamo=AppSettings.API_ENDPOINT_FILES_STATICS + '/sesamo.png.';
+        this.sulfitos=AppSettings.API_ENDPOINT_FILES_STATICS + '/sulfitos.png.';
+        this.altramuz=AppSettings.API_ENDPOINT_FILES_STATICS + '/altramuz.png.';
+        this.moluscos=AppSettings.API_ENDPOINT_FILES_STATICS + '/moluscos.png.';
+        this.cacahuetes=AppSettings.API_ENDPOINT_FILES_STATICS + '/cacahuetes.png.';
       }
     });
   }

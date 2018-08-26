@@ -6,6 +6,8 @@ export class AppSettings {
     public static API_ENDPOINT_FILES = 'http://79.147.125.159:8084/appcafeteriaucam/data/files';
     public static API_ENDPOINT_FILES_PRODUCTS = 'http://79.147.125.159:8084/appcafeteriaucam/data/files/products';
     public static API_ENDPOINT_FILES_USERS = 'http://79.147.125.159:8084/appcafeteriaucam/data/files/users';
+    public static API_ENDPOINT_FILES_STATICS = 'http://79.147.125.159:8084/appcafeteriaucam/data/files/statics';
+
 
 
     public static API_ENDPOINT_ITEMS = 'http://79.147.125.159:8084/appcafeteriaucam/data/products';
