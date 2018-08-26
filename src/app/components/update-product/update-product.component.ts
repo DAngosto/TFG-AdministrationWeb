@@ -9,7 +9,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../services/data.service';
 
 // INTERFACES
-import { Card } from '../../interfaces/Card';
 
 // SETTINGS
 import {AppSettings} from '../../AppSettings';

@@ -7,7 +7,6 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { DataService } from '../../services/data.service';
 
 // INTERFACES
-import { Card } from '../../interfaces/Card';
 
 // SETTINGS
 import {AppSettings} from '../../AppSettings';
@@ -89,15 +88,10 @@ export class UsersControlPanelComponent implements OnInit {
           data[i].imageURL = AppSettings.API_ENDPOINT + data[i].imageURL + '.';
           data[i].userRoleId = this.roles[data[i].userRoleId];
           this.items.push(data[i]);
-          console.log("entro");
         }
         if(this.items.length === 0) {
           this.showToast(1, 'No hay usuarios almacenados actualmente');
         }
-        console.log(this.items);
-        console.log(data);
-        //this.searchByRole(0);
-
       });
     });
   }

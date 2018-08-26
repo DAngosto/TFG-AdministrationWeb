@@ -8,7 +8,6 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { DataService } from '../../services/data.service';
 
 // INTERFACES
-import { Card } from '../../interfaces/Card';
 
 // SETTINGS
 import {AppSettings} from '../../AppSettings';

@@ -13,16 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { CreateCardComponent } from './components/create-card/create-card.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component'; 
-import { CardsControlPanelComponent } from './components/cards-control-panel/cards-control-panel.component';
-import { UpdateCardComponent } from './components/update-card/update-card.component';
-import { CollectionsControlPanelComponent } from './components/collections-control-panel/collections-control-panel.component';
-import { CreateCollectionComponent } from './components/create-collection/create-collection.component';
-import { UpdateCollectionComponent } from './components/update-collection/update-collection.component';
-import { GameConfigurationPanelComponent } from './components/game-configuration-panel/game-configuration-panel.component';
-import { AllStatisticsComponent } from './components/all-statistics/all-statistics.component';
-import { AllStatisticsCollectionComponent } from './components/all-statistics-collection/all-statistics-collection.component';
 
 //SERVICES
 import { AuthenticationService } from './services/authentication.service';
@@ -81,12 +72,6 @@ const appRoutes: Routes = [
   { path: 'workerOrdersCP',  canActivate: [AuthGuard], component: WorkerordersControlPanelComponent },
   { path: 'workerOrderDetailsCP',  canActivate: [AuthGuard], component: WorkerorderdetailsControlPanelComponent },
   { path: 'orderAlertsCP',  canActivate: [AuthGuard], component: OrderalertsControlPanelComponent },
-  { path: 'collectionsCP', canActivate: [AuthGuard], component: CollectionsControlPanelComponent },
-  { path: 'newCollection', canActivate: [AuthGuard], component: CreateCollectionComponent },
-  { path: 'updateCollection', canActivate: [AuthGuard], component: UpdateCollectionComponent },
-  { path: 'GameConfigCP', canActivate: [AuthGuard], component: GameConfigurationPanelComponent },
-  { path: 'AllStatisticsCollection', canActivate: [AuthGuard], component: AllStatisticsCollectionComponent },
-  { path: 'AllStatistics', canActivate: [AuthGuard], component: AllStatisticsComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];
@@ -95,17 +80,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    MenuComponent,
-    CreateCardComponent,
     NavBarComponent,
-    CardsControlPanelComponent,
-    UpdateCardComponent,
-    CollectionsControlPanelComponent,
-    CreateCollectionComponent,
-    UpdateCollectionComponent,
-    GameConfigurationPanelComponent,
-    AllStatisticsComponent,
-    AllStatisticsCollectionComponent,
+    MenuComponent,
     ProductsControlPanelComponent,
     CreateProductComponent,
     UpdateProductComponent,
