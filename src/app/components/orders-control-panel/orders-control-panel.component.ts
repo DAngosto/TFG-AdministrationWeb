@@ -71,21 +71,6 @@ export class OrdersControlPanelComponent implements OnInit {
     this._dataService.getAllOrders().subscribe(data => {
       this.items = [];
       for (let i = 0; i < data.length; i++) {
-        /*
-        var date = new Date(data[i].activatedDate*1000);
-        var day = date.getUTCDay();
-        var month = date.getUTCMonth();
-        var year = date.getUTCFullYear();
-        var hours = date.getHours();
-        // Minutes part from the timestamp
-        var minutes = "0" + date.getMinutes();
-        // Seconds part from the timestamp
-        var seconds = "0" + date.getSeconds();
-
-        // Will display time in 10:30:23 format
-        var formattedTime =  day + '/' + month + '/' + year + ' ' + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-        data[i].activatedDate = formattedTime;
-        */
         this.items.push(data[i]);
       }
       if(this.items.length === 0) {

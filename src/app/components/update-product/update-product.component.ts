@@ -226,10 +226,14 @@ export class UpdateProductComponent implements OnInit {
             this.showToast(1, 'Producto actualizado');
           });
         } else {
+
+          var aux3 = this.selectedFile.name.split('.');
+          var fileName = this.inputName + '.' + aux3[1];
+          var aux2 = "web_" + fileName;
+
           const fd = new FormData();
-          this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 50, 50).subscribe(result => {
-            fd.append('File', result, this.selectedFile.name);
-            this._dataService.uploadProductFile(fd).subscribe(data => {
+          fd.append('File', this.selectedFile, fileName);
+          this._dataService.uploadProductFile(fd).subscribe(data => {
             const fileURL = data['file'];
             this.productUpdating.name = this.inputName;
             this.productUpdating.category = this.selectedCategory;
@@ -238,9 +242,14 @@ export class UpdateProductComponent implements OnInit {
             this.productUpdating.stock = this.selectedStatus;
             this._dataService.updateProduct(this.productUpdating, aux).subscribe(data => {
               this.showToast(1, 'Producto actualizado');
+              const fd2 = new FormData();
+              this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 50, 50).subscribe(result => {
+                fd2.append('File', result, aux2);
+                this._dataService.uploadProductFile(fd2).subscribe(data => {
+                });
+              });
             });
           });
-        });
         }
         if (this.allergensFlag) {
           this.productAllergens.productName = this.productUpdating.name;

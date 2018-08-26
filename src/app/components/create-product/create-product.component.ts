@@ -178,9 +178,10 @@ export class CreateProductComponent implements OnInit {
   */
   uploadProduct() {
     if (this.selectedFile) {
-      var aux = this.selectedFile.name;
-      var aux2 = "web_" + aux;
       if ((this.inputName !== '') && (this.selectedCategory !== null) && (this.inputPrice !== NaN)) {
+        var aux = this.selectedFile.name.split('.');
+        var fileName = this.inputName + '.' + aux[1];
+        var aux2 = "web_" + fileName;
         var flag = false;
         for (let i = 0; i < this.products.length; i++) {
           if (this.products[i] === this.inputName) {
@@ -192,10 +193,7 @@ export class CreateProductComponent implements OnInit {
           this.showToast(0, 'El nombre del producto ya está siendo ocupado, por favor introduzca otro diferente');
         } else {
           const fd = new FormData();
-          console.log(aux);
-          this.ng2ImgToolsService.resizeExactCrop([this.selectedFile], 460, 460).subscribe(result => {
-            
-            fd.append('File', result, aux);
+            fd.append('File', this.selectedFile, fileName);
             this._dataService.uploadProductFile(fd).subscribe(data => {
             const fileURL = data['file'];
             this._dataService.createProduct(this.inputName, this.selectedCategory, this.inputPrice,
@@ -213,9 +211,6 @@ export class CreateProductComponent implements OnInit {
               });
             });
           });
-        });
-
-
         }
       } else {
         this.showToast(0, 'Los campos nombre o precio estaban incompletos, por favor introduce la información correspondiente');
