@@ -13,44 +13,45 @@
                     <a routerLink="/dashboard" routerLinkActive="active"><i class="fa fa-dashboard fa-fw"></i> Panel General</a>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/usersCP" routerLinkActive="active">Panel de Control de Usuarios</a>
-                            <a routerLink="/newWorkerTeam" routerLinkActive="active">Crear una nuevo equipo de trabajo</a>
-                            <a routerLink="/workingPermitsCP" routerLinkActive="active">Panel de Control de Permisos de Trabajo</a>
+                            <a routerLink="/usersCP" routerLinkActive="active"><i class="fa fa-users"></i>  Panel de Control de Usuarios</a>
+                            <a routerLink="/newWorkerTeam" routerLinkActive="active">- Crear una nuevo equipo de trabajo</a>
+                            <a routerLink="/workingPermitsCP" routerLinkActive="active">- Panel de Control de Permisos de Trabajo</a>
                     
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/productsCP" routerLinkActive="active">Panel de Control de Productos</a>
-                            <a routerLink="/newProduct" routerLinkActive="active">Crear una nuevo producto</a>
+                    <a routerLink="/userRolesCP" routerLinkActive="active"><i class="fa fa-user "></i> Panel de Control de Roles de Usuario</a>
+                    <a routerLink="/newUserRole" routerLinkActive="active">- Crear Nuevo Rol de Usuario</a>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/categoriesCP" routerLinkActive="active">Panel de Control de Categorías</a>
-                            <a routerLink="/newCategory" routerLinkActive="active">Crear una nueva categoría</a>
+                            <a routerLink="/productsCP" routerLinkActive="active"><i class="fa fa-coffee"></i> Panel de Control de Productos</a>
+                            <a routerLink="/newProduct" routerLinkActive="active">- Crear una nuevo producto</a>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/cafeteriasCP" routerLinkActive="active">Panel de Control de Cafeterías</a>
-                            <a routerLink="/newCafeteria" routerLinkActive="active">Crear una nueva cafetería</a>
+                            <a routerLink="/categoriesCP" routerLinkActive="active"><i class="fa fa-cutlery"></i> Panel de Control de Categorías</a>
+                            <a routerLink="/newCategory" routerLinkActive="active">- Crear una nueva categoría</a>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/ordersCP" routerLinkActive="active">Panel de Control de Pedidos</a>
+                            <a routerLink="/cafeteriasCP" routerLinkActive="active"><i class="fa fa-building-o"></i> Panel de Control de Cafeterías</a>
+                            <a routerLink="/newCafeteria" routerLinkActive="active">- Crear una nueva cafetería</a>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/orderAlertsCP" routerLinkActive="active">Panel de Control de Alertas</a>
+                            <a routerLink="/ordersCP" routerLinkActive="active"><i class="fa fa-shopping-cart"></i> Panel de Control de Pedidos</a>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/reviewsCP" routerLinkActive="active">Panel de Control de Opiniones</a>
+                            <a routerLink="/orderAlertsCP" routerLinkActive="active"><i class="glyphicon glyphicon-alert"></i> Panel de Control de Alertas</a>
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/userSavedOrdersCP" routerLinkActive="active">Panel de Control de Pedidos Almacenados por Usuarios</a>
+                            <a routerLink="/reviewsCP" routerLinkActive="active"><i class="fa fa-comment"></i> Panel de Control de Opiniones</a>  
                 </li>
                 <li *ngIf="userRole == 'Admin'">
-                            <a routerLink="/userRolesCP" routerLinkActive="active">Panel de Control de Roles de Usuario</a>
-                            <a routerLink="/newUserRole" routerLinkActive="active">Crear Nuevo Rol de Usuario</a>
+                            <a routerLink="/userSavedOrdersCP" routerLinkActive="active"><i class="fa fa-book "></i> Panel de Control de Pedidos Almacenados por Usuarios</a>
                 </li>
+                
                 <li *ngIf="userRole == 'WorkerTeam'">
-                        <a><i class="fa fa-image"></i> Panel de Pedidos </a>
+                        <a><i class="fa fa-shopping-cart"></i> Panel de Pedidos </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a routerLink="/workerOrdersCP" routerLinkActive="active">Panel de Control de Pedidos</a>
+                                <a routerLink="/workerOrdersCP" routerLinkActive="active">- Panel de Control de Pedidos</a>
                             </li>
                         </ul>
                     </li>
