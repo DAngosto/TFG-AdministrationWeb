@@ -46,6 +46,7 @@ export class CreateWorkerComponent implements OnInit {
   ngOnInit() {
     this.getAllUsers();
     this.getAllCafeterias();
+    console.log(this.cafeterias);
   }
 
   /*
@@ -123,7 +124,6 @@ export class CreateWorkerComponent implements OnInit {
                   }
                 }
                 if(idCafeteria > 0) {
-                  console.log(this.cafeterias[idCafeteria]);
                   this._dataService.createWorkingPermit(data['id'], idCafeteria).subscribe(data => {
                   });
                 } else {

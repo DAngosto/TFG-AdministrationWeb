@@ -97,6 +97,16 @@ export class WorkingpermitsControlPanelComponent implements OnInit {
     });
   }
 
+  updateUser(i) {
+    this._dataService.getUserByEmail(this.items[i].userEmail).subscribe(data => {
+        this._dataService.changeUser(data);
+        this.router.navigate(['/updateWorkerTeam']);
+
+    });
+    
+    
+    
+  }
 
 
 

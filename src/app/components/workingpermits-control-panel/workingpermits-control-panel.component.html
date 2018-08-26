@@ -12,6 +12,7 @@
                             <tr>
                                 <th>Equipo de Trabajo</th>
                                 <th>Cafeteria</th>
+                                <th class="text-center">Añadir Permiso de Trabajo</th>
                                 <th class="text-center">Eliminar</th>
                             </tr>
                         </thead>
@@ -19,6 +20,7 @@
                             <tr *ngFor="let item of items ; let i = index">
                                 <td >{{ item.userEmail }}</td>
                                 <td >{{ item.cafeteriaLocation }}</td>
+                                <td class="text-center"><button type="button" class="btn btn-info btn-circle" (click)= "updateUser(i)"><i class="fa fa-plus"></i></button></td>
                                 <td class="text-center"><button type="button" class="btn btn-danger btn-circle" (click)= "deleteWorkingPermit(i)"><i class="fa fa-times"></i></button></td>
                             </tr>
                         </tbody>

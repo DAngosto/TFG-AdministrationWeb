@@ -102,7 +102,8 @@ export class WorkerordersControlPanelComponent implements OnInit {
                 flag = true;
               }
             }
-            if (flag === true) {
+            if (flag == true) {
+              flag = false;
               this.cafeterias.push(data[i].location);
             } else {
               flag = false;
@@ -167,21 +168,20 @@ export class WorkerordersControlPanelComponent implements OnInit {
       if (this.items[i].status === 0) { this.items[i].status = 1; } else { this.items[i].status = 0; }
       this._dataService.updateOrder(this.items[i], this.items[i].id).subscribe(data => {
         this.showToast(1, 'Estado de pedido actualizado');
-        this.refreshOrders();
       });
     } else if (type === 1) {
       this.items[i].status = 3;
       this._dataService.updateOrder(this.items[i], this.items[i].id).subscribe(data => {
         this._dataService.createAlertOrder(this.items[i].userEmail, this.items[i].id).subscribe(data => {
           this.showToast(1, 'Estado de pedido actualizado a "Cliente nunca apareció"');
-          this.refreshOrders();
+          this.getAllCafeterias();
         });
       });
     } else {
       this.items[i].status = 4;
       this._dataService.updateOrder(this.items[i], this.items[i].id).subscribe(data => {
         this.showToast(1, 'Estado de pedido actualizado a "Finalizado"');
-        this.refreshOrders();
+        this.getAllCafeterias();
       });
     }
   }

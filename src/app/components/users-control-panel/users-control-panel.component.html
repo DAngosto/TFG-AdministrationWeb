@@ -36,8 +36,8 @@
                                 <td >{{item.createdDate | date: 'dd-MM-yyyy'}}</td>
                                 <td >{{item.birthday | date: 'dd-MM-yyyy'}}</td>
                                 <td >{{ item.userRoleId}}</td>
-                                <td class="text-center" *ngIf="item.userRoleId != 'WorkerTeam'"><button type="button" class="btn btn-info btn-circle"  disabled><i class="fa fa-pencil"></i></button></td>
-                                <td class="text-center" *ngIf="item.userRoleId == 'WorkerTeam'"><button type="button" class="btn btn-info btn-circle" (click)= "updateUser(i)"><i class="fa fa-pencil"></i></button></td>
+                                <td class="text-center" *ngIf="item.userRoleId != 'WorkerTeam'"><button type="button" class="btn btn-info btn-circle"  disabled><i class="fa fa-plus"></i></button></td>
+                                <td class="text-center" *ngIf="item.userRoleId == 'WorkerTeam'"><button type="button" class="btn btn-info btn-circle" (click)= "updateUser(i)"><i class="fa fa-plus"></i></button></td>
                                 <td class="text-center" *ngIf="item.userRoleId != 'WorkerTeam'"><button type="button" class="btn btn-danger btn-circle"  disabled><i class="fa fa-times"></i></button></td>
                                 <td class="text-center" *ngIf="item.userRoleId == 'WorkerTeam'"><button type="button" class="btn btn-danger btn-circle" (click)= "deleteUser(i)"><i class="fa fa-times"></i></button></td>
                             </tr>

@@ -20,8 +20,8 @@
                             <tr *ngFor="let item of items ; let i = index">
                                 <td >{{ item.userEmail }}</td>
                                 <td >{{ item.orderId }}</td>
-                                <td class="text-center" *ngIf="item.contacted == false"><button class="btn btn-info btn-circle" (click)= "changeContactedStatus(i)" ><i class="fa fa-pencil"></i></button></td>
-                                <td class="text-center" *ngIf="item.contacted == true"><button class="btn btn-info btn-circle" disabled ><i class="fa fa-pencil"></i></button></td>
+                                <td class="text-center" *ngIf="item.contacted == false"><button class="btn btn-info btn-circle" (click)= "changeContactedStatus(i)" ><i class="fa fa-exchange"></i></button></td>
+                                <td class="text-center" *ngIf="item.contacted == true"><button class="btn btn-info btn-circle" disabled ><i class="fa fa-exchange"></i></button></td>
 
                                 <td class="text-center"><button type="button" class="btn btn-danger btn-circle" (click)= "deleteOrderAlert(i)"><i class="fa fa-times"></i></button></td>
                             </tr>
